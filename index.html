@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFI Capital - Cộng Đồng Tài Chính Chuyên Nghiệp</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter cho cảm giác hiện đại và dễ đọc -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Thiết lập font Inter cho toàn bộ body */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Chế độ tối: Màu sắc chuyên nghiệp (Corporate Dark Theme) */
+        .dark-mode {
+            background-color: #0f172a;
+            /* Slate 900 - Nền sâu hơn */
+            color: #e2e8f0;
+            /* Text sáng nhẹ */
+        }
+
+        .dark-mode .card {
+            background-color: #1e293b;
+            /* Slate 800 - Nền card đậm */
+            border-color: #334155;
+            /* Slate 700 - Viền tinh tế */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            /* Bóng đổ sâu hơn */
+        }
+
+        /* Màu chủ đạo (Accent Color) - Xanh ngọc bích chuyên nghiệp */
+        .text-primary,
+        .border-primary {
+            color: #34d399;
+            /* Emerald 400 */
+        }
+
+        .bg-primary {
+            background-color: #34d399;
+        }
+
+        .hover\:bg-primary-dark:hover {
+            background-color: #10b981;
+            /* Emerald 500 */
+        }
+
+        /* Hiệu ứng cho nút CTA lớn */
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -5px rgba(52, 211, 153, 0.5);
+            /* Tăng bóng đổ khi hover */
+        }
+
+        /* Style cho Tab Navigation */
+        .tab-button {
+            background-color: #334155;
+            /* Slate 700 */
+            color: #94a3b8;
+            /* Slate 400 */
+            border: 2px solid transparent;
+        }
+
+        .tab-button:hover {
+            background-color: #475569;
+            /* Slate 600 hover */
+        }
+
+        .active-tab {
+            background-color: #34d399 !important;
+            /* Primary color */
+            color: #0f172a !important;
+            /* Dark text for contrast */
+            box-shadow: 0 4px 10px rgba(52, 211, 153, 0.4);
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <div class="max-w-3xl mx-auto p-4 sm:p-8 lg:p-10">
+
+        <!-- Header và Tiêu đề - Hiện đại và Tối giản -->
+        <header class="text-center mb-8 mt-8">
+            <img id="avatar" src="https://placehold.co/100x100/34d399/1e293b?text=SFI" alt="Logo SFI Club"
+                class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary shadow-lg">
+
+            <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
+                SFI CLUB - Safe Financial Investment
+            </h1>
+            <p class="text-xl font-medium text-primary" id="tagline">
+                Cộng đồng Traders & Đầu tư Tài chính bền vững
+            </p>
+        </header>
+
+        <!-- KHU VỰC NỘI DUNG CHÍNH (TAB VIEW) -->
+        <div id="main-view">
+            <!-- Tab Navigation Bar -->
+            <nav class="flex justify-center space-x-2 sm:space-x-4 mb-10 card p-3 rounded-xl">
+                <button id="btn-gioi-thieu" onclick="showTab('gioi-thieu')"
+                    class="tab-button flex-1 py-3 px-4 rounded-xl font-semibold text-base sm:text-lg transition duration-300">
+                    Giới thiệu SFI
+                </button>
+                <button id="btn-cong-cu" onclick="showTab('cong-cu')"
+                    class="tab-button flex-1 py-3 px-4 rounded-xl font-semibold text-base sm:text-lg transition duration-300">
+                    Công cụ Cốt Lõi
+                </button>
+            </nav>
+
+            <!-- Tab 1: Giới thiệu Chung về SFI Club -->
+            <div id="tab-gioi-thieu" class="tab-content">
+                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                    <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
+                    <img src="[URL_HÌNH_ẢNH_BANNER_SFI_CLUB_CỦA_BẠN]"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x200/34d399/0f172a?text=SFI+Club+Banner';"
+                        alt="Banner SFI Club"
+                        class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                    <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                    <h2 class="text-3xl font-bold mb-4 border-b border-primary/20 pb-2 text-white">
+                        Về SFI Club
+                    </h2>
+
+                    <p class="leading-relaxed text-base font-bold text-primary mb-3">WELCOME TO SFI CLUB!</p>
+                    <p class="leading-relaxed text-base text-gray-300 mb-4">🎉 Chào mừng bạn đến với SFI CLUB – Safe
+                        Financial Investment! Tại đây, chúng ta cùng nhau xây dựng một cộng đồng vững mạnh dành cho Nhà
+                        đầu tư, Traders, IB và MIB trong lĩnh vực Tài chính CFDs, đặc biệt là Forex & giao dịch Vàng.
+                    </p>
+
+                    <p class="leading-relaxed text-base text-gray-300 mb-4">🤝 SFI CLUB không chỉ là nơi kết nối mà còn
+                        là môi trường để học hỏi, chia sẻ kinh nghiệm, nâng cao kiến thức và cùng nhau phát triển bền
+                        vững. Mỗi thành viên đều là một mắt xích quan trọng để tạo nên sức mạnh tập thể.</p>
+
+                    <p class="leading-relaxed text-base text-gray-300">🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ
+                        hội và thành công khi trở thành thành viên của cộng đồng! 🚀💰</p>
+                </section>
+            </div>
+
+            <!-- Tab 2: Danh sách Công cụ Cốt Lõi (Clickable List) -->
+            <div id="tab-cong-cu" class="tab-content hidden">
+                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                    <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-white">
+                        Lựa chọn Công cụ
+                    </h2>
+                    <div class="space-y-6">
+                        <!-- Clickable Card for Bot -->
+                        <div onclick="showDetail('bot')"
+                            class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
+                            <div class="flex items-center">
+                                <span class="text-4xl text-primary mr-4">🤖</span>
+                                <div>
+                                    <p class="font-bold text-xl text-white">Bot Bán Tự Động: Quản trị Rủi ro Tự động</p>
+                                    <p class="text-gray-400 text-sm">Nhấn để xem chi tiết về Hệ thống Quản lý Vốn 24/5.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Clickable Card for Signals -->
+                        <div onclick="showDetail('signal')"
+                            class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
+                            <div class="flex items-center">
+                                <span class="text-4xl text-primary mr-4">🎯</span>
+                                <div>
+                                    <p class="font-bold text-xl text-white">Chuyên Gia Tín Hiệu: Vùng vào lệnh Tối ưu
+                                    </p>
+                                    <p class="text-gray-400 text-sm">Nhấn để khám phá cách Phân tích Chuyên sâu hỗ trợ
+                                        giao dịch.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- KẾT THÚC KHU VỰC NỘI DUNG CHÍNH (TAB VIEW) -->
+
+
+        <!-- KHU VỰC CHI TIẾT CÔNG CỤ (DETAIL VIEW) -->
+        <div id="detail-view" class="hidden">
+            <!-- Chi tiết BOT -->
+            <section id="bot-detail" class="detail-content card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <button onclick="showTab('cong-cu')"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <!-- Icon mũi tên trái -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Quay lại Công cụ Cốt Lõi
+                </button>
+
+                <!-- KHU VỰC ẢNH BOT -->
+                <img src="[URL_HÌNH_ẢNH_BOT_GIAO_DỊCH_CỦA_BẠN]"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/34d399?text=Bot+Giao+Dich+Tu+Dong';"
+                    alt="Hình ảnh Bot Bán Tự Động"
+                    class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                <h2 class="text-4xl font-extrabold mb-4 text-primary">🤖 Bot Bán Tự Động SFI</h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Hệ thống Quản trị Rủi ro Vốn Tự động
+                    (Semi-Auto Bot)</p>
+
+                <div class="space-y-4 text-gray-300">
+                    <p><strong class="text-primary font-semibold">Tự động hóa kỷ luật:</strong> Tận dụng công nghệ AI để
+                        tự động hóa việc quản lý vốn và vị thế, loại bỏ yếu tố cảm xúc trong giao dịch.</p>
+                    <p><strong class="text-primary font-semibold">Hoạt động liên tục:</strong> Bot hoạt động **24/5**
+                        theo giờ thị trường Forex và Vàng, đảm bảo bạn không bỏ lỡ cơ hội nào ngay cả khi đang ngủ.</p>
+                    <p><strong class="text-primary font-semibold">Kiểm soát rủi ro:</strong> Thiết lập các giới hạn rủi
+                        ro chặt chẽ (Stop-loss, Take-profit) được thực thi tự động, bảo vệ tài khoản khỏi biến động bất
+                        ngờ.</p>
+                    <p><strong class="text-primary font-semibold">Lợi ích:</strong> Giúp trader mới dễ dàng làm quen và
+                        trader cũ tối ưu hóa chiến lược mà không cần canh màn hình liên tục.</p>
+                    <p class="pt-2 text-sm italic text-gray-500">Lưu ý: Bot bán tự động yêu cầu sự giám sát và can thiệp
+                        thủ công từ người dùng để điều chỉnh theo điều kiện thị trường.</p>
+                </div>
+            </section>
+
+            <!-- Chi tiết SIGNALS -->
+            <section id="signal-detail"
+                class="detail-content card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                <button onclick="showTab('cong-cu')"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Quay lại Công cụ Cốt Lõi
+                </button>
+
+                <!-- KHU VỰC ẢNH TÍN HIỆU -->
+                <img src="[URL_HÌNH_ẢNH_TÍN_HIỆU_CHUYÊN_GIA_CỦA_BẠN]"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/34d399?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
+                    alt="Hình ảnh Tín Hiệu Chuyên Gia"
+                    class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                <h2 class="text-4xl font-extrabold mb-4 text-primary">🎯 Chuyên Gia Tín Hiệu SFI</h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Phân tích đa chiều & Xác định Vùng
+                    vào lệnh Tối ưu (Entry Zone)</p>
+
+                <div class="space-y-4 text-gray-300">
+                    <p><strong class="text-primary font-semibold">Độ chính xác cao:</strong> Tín hiệu được sàng lọc và
+                        xác nhận bởi đội ngũ chuyên gia dày dạn kinh nghiệm trên thị trường Vàng và Forex.</p>
+                    <p><strong class="text-primary font-semibold">Phân tích chuyên sâu:</strong> Không chỉ là điểm
+                        vào/ra, mỗi tín hiệu còn đi kèm với lý do phân tích (technical/fundamental) rõ ràng, giúp bạn
+                        học hỏi thêm.</p>
+                    <p><strong class="text-primary font-semibold">Tối ưu lợi nhuận:</strong> Tập trung vào việc xác định
+                        **vùng vào lệnh (Entry Zone)** lý tưởng, giảm thiểu rủi ro trượt giá và tối đa hóa tiềm năng lợi
+                        nhuận.</p>
+                    <p><strong class="text-primary font-semibold">Cập nhật tức thời:</strong> Tín hiệu được gửi đến
+                        thành viên ngay lập tức qua kênh riêng tư, đảm bảo kịp thời hành động theo diễn biến thị trường.
+                    </p>
+                    <p class="pt-2 text-sm italic text-gray-500">Disclaimer: Giao dịch tài chính luôn tiềm ẩn rủi ro.
+                        Tín hiệu chỉ mang tính chất tham khảo, không phải lời khuyên đầu tư.</p>
+                </div>
+            </section>
+        </div>
+        <!-- KẾT THÚC KHU VỰC CHI TIẾT CÔNG CỤ -->
+
+
+        <!-- Tham Gia & Liên Hệ (CTA Nổi bật) - Luôn hiển thị -->
+        <section class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white">
+                Quy Trình Tham Gia Cộng Đồng
+            </h2>
+
+            <p class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500">
+                ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
+            </p>
+
+            <!-- Link 1: Call to Action - Liên hệ -->
+            <a href="[link_zalo_hoac_telegram_cua_ban]" target="_blank"
+                class="cta-button block bg-primary hover:bg-primary-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg">
+                <span class="text-gray-900">Liên Hệ Với Tôi Ngay!</span>
+                <p class="text-sm font-medium mt-1">Để nhận mã giới thiệu và hướng dẫn tham gia chi tiết.</p>
+            </a>
+
+            <!-- Link 2: Tìm hiểu thêm (ví dụ: Group Telegram/Fanpage) -->
+            <a href="[link_fanpage_hoac_group]" target="_blank"
+                class="block bg-slate-700 hover:bg-slate-600 text-white font-semibold p-4 rounded-xl shadow-md mt-4 transition duration-300">
+                Tìm Hiểu Thêm Về SFI CLUB & Kênh Cộng Đồng
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center pt-8 border-t border-slate-700">
+            <p class="text-sm text-gray-400">
+                Thiết kế hiện đại. | © 2025 SFI Club.
+            </p>
+            <p class="text-xs mt-1 text-primary">
+                Sử dụng HTML & Tailwind CSS | Optimized for Mobile.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Hàm xử lý chuyển đổi View (Main Tab View vs. Detail View)
+        function showView(viewId) {
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.add('hidden');
+
+            if (viewId === 'main') {
+                document.getElementById('main-view').classList.remove('hidden');
+            } else if (viewId === 'detail') {
+                document.getElementById('detail-view').classList.remove('hidden');
+            }
+        }
+
+        // Hàm xử lý chuyển đổi Tab (Chỉ hoạt động khi đang ở main view)
+        function showTab(tabId) {
+            showView('main'); // Đảm bảo chuyển về main view trước
+
+            // 1. Ẩn tất cả nội dung tab
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // 2. Hủy trạng thái active của tất cả nút
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active-tab');
+            });
+
+            // 3. Hiển thị nội dung tab được yêu cầu
+            const activeContent = document.getElementById('tab-' + tabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+
+            // 4. Kích hoạt nút tab được yêu cầu
+            const activeButton = document.getElementById('btn-' + tabId);
+            if (activeButton) {
+                activeButton.classList.add('active-tab');
+            }
+        }
+
+        // Hàm hiển thị trang chi tiết công cụ
+        function showDetail(toolId) {
+            showView('detail'); // Chuyển sang detail view
+
+            // Ẩn tất cả detail sections trước
+            document.querySelectorAll('.detail-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Hiển thị specific detail section
+            document.getElementById(toolId + '-detail').classList.remove('hidden');
+        }
+
+        // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang
+        window.onload = function () {
+            showTab('gioi-thieu');
+        };
+
+        // Cập nhật thông tin mặc định
+        document.getElementById('avatar').src = 'https://placehold.co/100x100/34d399/1e293b?text=SFI';
+        document.getElementById('tagline').textContent = 'Cộng đồng Traders & Đầu tư Tài chính bền vững';
+
+    </script>
+</body>
+
+</html>
