@@ -1,1 +1,1 @@
-# my-store-site
+# homepage
