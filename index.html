@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFI Capital - Cộng Đồng Tài Chính Chuyên Nghiệp</title>
+    <title>SFI Club - Cộng Đồng Tài Chính Chuyên Nghiệp</title>
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter cho cảm giác hiện đại và dễ đọc -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Thư viện Lucide Icons (Sử dụng SVG icons hiện đại thay cho emoji) -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         /* Thiết lập font Inter cho toàn bộ body */
         body {
@@ -83,6 +85,7 @@
         }
 
         /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (TRANSITION) === */
+        /* Content Transition cho Tab/Detail view */
         .content-transition {
             opacity: 0;
             transform: translateY(15px) scale(0.98);
@@ -94,6 +97,22 @@
             opacity: 1;
             transform: translateY(0) scale(1);
         }
+
+        /* Modal Transition */
+        .modal.open {
+            display: flex !important;
+        }
+
+        .modal-content.entering {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .modal.open .modal-content {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+        }
     </style>
 </head>
 
@@ -103,6 +122,7 @@
         <!-- Header và Tiêu đề - Hiện đại và Tối giản -->
         <header class="text-center mb-8 mt-8">
             <img id="avatar" src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png"
+                onerror="this.onerror=null;this.src='https://placehold.co/96x96/1e293b/34d399?text=SFI';"
                 alt="Logo SFI Club" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary shadow-lg">
 
             <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
@@ -127,7 +147,7 @@
                 </button>
             </nav>
 
-            <!-- Tab 1: Giới thiệu Chung về SFI Club (Đã cập nhật nội dung mới) -->
+            <!-- Tab 1: Giới thiệu Chung về SFI Club -->
             <div id="tab-gioi-thieu" class="tab-content content-transition">
                 <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                     <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
@@ -185,7 +205,7 @@
                         <div onclick="showDetail('bot')"
                             class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
                             <div class="flex items-center">
-                                <span class="text-4xl text-primary mr-4">🤖</span>
+                                <i data-lucide="robot" class="text-primary mr-4 w-8 h-8"></i>
                                 <div>
                                     <p class="font-bold text-xl text-white">Bot Bán Tự Động: Quản trị Rủi ro Tự động</p>
                                     <p class="text-gray-400 text-sm">Nhấn để xem chi tiết về Hệ thống Quản lý Vốn 24/5.
@@ -197,7 +217,7 @@
                         <div onclick="showDetail('signal')"
                             class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
                             <div class="flex items-center">
-                                <span class="text-4xl text-primary mr-4">🎯</span>
+                                <i data-lucide="target" class="text-primary mr-4 w-8 h-8"></i>
                                 <div>
                                     <p class="font-bold text-xl text-white">Chuyên Gia Tín Hiệu: Vùng vào lệnh Tối ưu
                                     </p>
@@ -216,16 +236,12 @@
         <!-- KHU VỰC CHI TIẾT CÔNG CỤ (DETAIL VIEW) -->
         <div id="detail-view" class="hidden">
             <!-- Chi tiết BOT -->
-            <section id="bot-detail" class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+            <section id="bot-detail"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showTab('cong-cu')"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                     <!-- Icon mũi tên trái -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
                     Quay lại Công cụ Cốt Lõi
                 </button>
 
@@ -236,7 +252,9 @@
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
                 <!-- KẾT THÚC KHU VỰC ẢNH -->
 
-                <h2 class="text-4xl font-extrabold mb-4 text-primary">🤖 Bot Bán Tự Động SFI</h2>
+                <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="robot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
+                </h2>
                 <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Hệ thống Quản trị Rủi ro Vốn Tự động
                     (Semi-Auto Bot)</p>
 
@@ -261,12 +279,7 @@
                 class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showTab('cong-cu')"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
-                        fill="currentColor">
-                        <path fill-rule="evenodd"
-                            d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-                            clip-rule="evenodd" />
-                    </svg>
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
                     Quay lại Công cụ Cốt Lõi
                 </button>
 
@@ -277,7 +290,9 @@
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
                 <!-- KẾT THÚC KHU VỰC ẢNH -->
 
-                <h2 class="text-4xl font-extrabold mb-4 text-primary">🎯 Chuyên Gia Tín Hiệu SFI</h2>
+                <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="target" class="h-10 w-10 mr-2"></i> Chuyên Gia Tín Hiệu SFI
+                </h2>
                 <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Phân tích đa chiều & Xác định Vùng
                     vào lệnh Tối ưu (Entry Zone)</p>
 
@@ -306,54 +321,28 @@
             class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
             <button onclick="showTab('gioi-thieu')"
                 class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                        d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z"
-                        clip-rule="evenodd" />
-                </svg>
+                <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
                 Quay lại Trang Chủ
             </button>
 
-            <h2 class="text-4xl font-extrabold mb-4 text-primary">📞 Kênh Liên Hệ Hỗ Trợ</h2>
+            <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
+                <i data-lucide="phone-call" class="h-10 w-10 mr-2"></i> Kênh Liên Hệ Hỗ Trợ
+            </h2>
             <p class="text-xl text-white mb-8 border-b border-primary/20 pb-4">Vui lòng chọn kênh liên hệ để nhận mã
                 giới thiệu và hướng dẫn tham gia SFI Club.</p>
 
             <div class="space-y-4">
-                <!-- MODAL: CỬA SỔ POP-UP HỖ TRỢ ZALO -->
-                <div id="zalo-qr-modal"
-                    class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 transition-opacity duration-300">
-                    <!-- Modal Content -->
-                    <div class="bg-slate-800 card p-6 rounded-2xl shadow-2xl max-w-sm w-full relative transform transition-all duration-300 scale-95 opacity-0"
-                        id="zalo-qr-modal-content">
-                        <!-- Nút Đóng -->
-                        <button onclick="closeModal('zalo-qr-modal')"
-                            class="absolute top-3 right-3 text-gray-400 hover:text-white transition duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
+                <!-- Nút 1: Liên hệ qua Zalo (Mở Modal) -->
+                <button onclick="openModal('zalo-qr-modal')"
+                    class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
+                    <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
+                    Liên Hệ qua Zalo (Quét QR Code)
+                </button>
 
-                        <h3 class="text-2xl font-bold mb-4 text-primary text-center">Liên Hệ Hỗ Trợ Zalo</h3>
-                        <p class="text-gray-300 mb-6 text-center">Vui lòng quét mã QR Code để kết nối trực tiếp với Em Lợi SFI
-                            Club.</p>
-
-                    <!-- QR CODE ZALO -->
-                    <div class="flex justify-center">
-                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/3ad789b3ce1743491a06.jpg"
-                            onerror="this.onerror=null;this.src='https://placehold.co/250x250/34d399/0f172a?text=QR+Code+Error';"
-                            alt="QR Code Zalo Em Lợi SFI" class="w-60 h-60 rounded-lg border-4 border-primary shadow-lg">
-                    </div>
-
-                    <p class="text-sm text-gray-500 mt-4 text-center">Hoặc tìm kiếm Zalo theo SĐT: 0869912102</p>
-
-                </div>
-            </div>
-            <!-- KẾT THÚC MODAL -->
-                <!-- Nút Gọi điện thoại -->
+                <!-- Nút 2: Gọi điện thoại -->
                 <a href="tel:0869912102"
                     class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
-                    <span class="text-2xl mr-3">📱</span>
+                    <i data-lucide="phone" class="w-6 h-6 mr-3"></i>
                     Gọi Điện Thoại Trực Tiếp: Em Lợi
                 </a>
             </div>
@@ -397,7 +386,57 @@
 
     </div>
 
+    <!-- MODAL: CỬA SỔ POP-UP HỖ TRỢ ZALO (ĐÃ TÁCH KHỎI CONTACT SECTION) -->
+    <div id="zalo-qr-modal"
+        class="modal fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 transition-opacity duration-300">
+        <!-- Modal Content -->
+        <div class="bg-slate-800 card p-6 rounded-2xl shadow-2xl max-w-sm w-full relative modal-content entering">
+            <!-- Nút Đóng -->
+            <button onclick="closeModal('zalo-qr-modal')"
+                class="absolute top-3 right-3 text-gray-400 hover:text-white transition duration-200">
+                <i data-lucide="x" class="h-6 w-6"></i>
+            </button>
+
+            <h3 class="text-2xl font-bold mb-4 text-primary text-center">Liên Hệ Hỗ Trợ Zalo</h3>
+            <p class="text-gray-300 mb-6 text-center">Vui lòng quét mã QR Code để kết nối trực tiếp với Em Lợi SFI
+                Club.</p>
+
+            <!-- QR CODE ZALO -->
+            <div class="flex justify-center">
+                <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/3ad789b3ce1743491a06.jpg"
+                    onerror="this.onerror=null;this.src='https://placehold.co/250x250/34d399/0f172a?text=QR+Code+Error';"
+                    alt="QR Code Zalo Em Lợi SFI" class="w-60 h-60 rounded-lg border-4 border-primary shadow-lg">
+            </div>
+
+            <p class="text-sm text-gray-500 mt-4 text-center">Hoặc tìm kiếm Zalo theo SĐT: 0869912102</p>
+
+        </div>
+    </div>
+    <!-- KẾT THÚC MODAL -->
+
     <script>
+        // Hàm xử lý mở Modal (Pop-up)
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            const content = modal.querySelector('.modal-content');
+            modal.classList.add('open');
+            content.classList.remove('entering');
+        }
+
+        // Hàm xử lý đóng Modal (Pop-up)
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            const content = modal.querySelector('.modal-content');
+
+            // Bắt đầu hiệu ứng đóng
+            content.classList.add('entering');
+
+            // Chờ hiệu ứng đóng kết thúc rồi ẩn modal
+            setTimeout(() => {
+                modal.classList.remove('open');
+            }, 300); // 300ms là thời gian transition
+        }
+
         // Hàm xử lý chuyển đổi View (Main Tab View vs. Detail View)
         function showView(viewId) {
             document.getElementById('main-view').classList.add('hidden');
@@ -463,17 +502,18 @@
             }
         }
 
-        // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang
+        // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang và Lucide Icons được render
         window.onload = function () {
+            // Render Lucide icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+
+            // Hiển thị tab mặc định
             showTab('gioi-thieu');
         };
-
-        // Cập nhật thông tin mặc định (Giữ nguyên các URL bạn đã cung cấp)
-        document.getElementById('avatar').src = 'https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png';
-        document.getElementById('tagline').textContent = 'Cộng đồng Traders & Đầu tư Tài chính bền vững';
 
     </script>
 </body>
 
 </html>
-
