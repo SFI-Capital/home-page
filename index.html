@@ -81,6 +81,19 @@
             /* Dark text for contrast */
             box-shadow: 0 4px 10px rgba(52, 211, 153, 0.4);
         }
+
+        /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (TRANSITION) === */
+        .content-transition {
+            opacity: 0;
+            transform: translateY(15px) scale(0.98);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            /* Thời gian chuyển đổi 0.4s */
+        }
+
+        .content-transition.active-content {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
 
@@ -115,7 +128,7 @@
             </nav>
 
             <!-- Tab 1: Giới thiệu Chung về SFI Club (Đã cập nhật nội dung mới) -->
-            <div id="tab-gioi-thieu" class="tab-content">
+            <div id="tab-gioi-thieu" class="tab-content content-transition">
                 <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                     <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
                     <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
@@ -162,7 +175,7 @@
             </div>
 
             <!-- Tab 2: Danh sách Công cụ Cốt Lõi (Clickable List) -->
-            <div id="tab-cong-cu" class="tab-content hidden">
+            <div id="tab-cong-cu" class="tab-content content-transition hidden">
                 <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                     <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-white">
                         Lựa chọn Công cụ
@@ -203,7 +216,7 @@
         <!-- KHU VỰC CHI TIẾT CÔNG CỤ (DETAIL VIEW) -->
         <div id="detail-view" class="hidden">
             <!-- Chi tiết BOT -->
-            <section id="bot-detail" class="detail-content card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+            <section id="bot-detail" class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showTab('cong-cu')"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                     <!-- Icon mũi tên trái -->
@@ -245,7 +258,7 @@
 
             <!-- Chi tiết SIGNALS -->
             <section id="signal-detail"
-                class="detail-content card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showTab('cong-cu')"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20"
@@ -290,7 +303,7 @@
 
         <!-- Chi tiết CONTACTS (Mới) -->
         <section id="contact-detail"
-            class="detail-content card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+            class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
             <button onclick="showTab('gioi-thieu')"
                 class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -307,73 +320,57 @@
 
             <div class="space-y-4">
                 <!-- Nút Liên hệ Zalo -->
-                <a href="[link_zalo_cua_ban]" target="_blank"
+                <a href="https://zalo.me/869912102" target="_blank"
                     class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
                     <span class="text-2xl mr-3">💬</span>
                     Hỗ trợ Nhanh qua Zalo
                     <span class="text-xs ml-2 opacity-75">(Ưu tiên)</span>
                 </a>
 
-                <!-- Nút Liên hệ Telegram -->
-                <a href="[link_telegram_cua_ban]" target="_blank"
-                    class="block w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
-                    <span class="text-2xl mr-3">✈️</span>
-                    Kênh Telegram Cá Nhân
-                </a>
-
                 <!-- Nút Gọi điện thoại -->
                 <a href="tel:0869912102"
                     class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
                     <span class="text-2xl mr-3">📱</span>
-                    Gọi Điện Thoại Trực Tiếp: 0869912102
-                </a>
-
-                <!-- Nút Gửi Email -->
-                <a href="mailto:dailoi1206@gmail.com"
-                    class="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
-                    <span class="text-2xl mr-3">📧</span>
-                    Gửi Email Hỗ Trợ
+                    Gọi Điện Thoại Trực Tiếp: Em Lợi
                 </a>
             </div>
         </section>
-    </div>
-    <!-- KẾT THÚC KHU VỰC CHI TIẾT CÔNG CỤ & LIÊN HỆ -->
 
 
-    <!-- Tham Gia & Liên Hệ (CTA Nổi bật) - Luôn hiển thị -->
-    <section class="mb-10 text-center">
-        <h2 class="text-3xl font-bold mb-6 text-white">
-            Quy Trình Tham Gia Cộng Đồng
-        </h2>
+        <!-- Tham Gia & Liên Hệ (CTA Nổi bật) - Luôn hiển thị -->
+        <section class="mb-10 text-center">
+            <h2 class="text-3xl font-bold mb-6 text-white">
+                Quy Trình Tham Gia Cộng Đồng
+            </h2>
 
-        <p class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500">
-            ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
-        </p>
+            <p class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500">
+                ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
+            </p>
 
-        <!-- Button 1: Call to Action - Mở Trang Liên Hệ Chi Tiết (Đã thay đổi thành button) -->
-        <button onclick="showDetail('contact')"
-            class="cta-button w-full block bg-primary hover:bg-primary-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg">
-            <span class="text-gray-900">Liên Hệ Với Tôi Ngay!</span>
-            <p class="text-sm font-medium mt-1">Xem tất cả các kênh liên hệ để được hỗ trợ nhanh nhất.</p>
-        </button>
+            <!-- Button 1: Call to Action - Mở Trang Liên Hệ Chi Tiết (Đã thay đổi thành button) -->
+            <button onclick="showDetail('contact')"
+                class="cta-button w-full block bg-primary hover:bg-primary-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg">
+                <span class="text-gray-900">Liên Hệ Với Tôi Ngay!</span>
+                <p class="text-sm font-medium mt-1">Xem tất cả các kênh liên hệ để được hỗ trợ nhanh nhất.</p>
+            </button>
 
-        <!-- Link 2: Tìm hiểu thêm (ví dụ: Group Telegram/Fanpage) -->
-        <a href="https://zalo.me/g/whsreu450" target="_blank"
-            class="block bg-slate-700 hover:bg-slate-600 text-white font-semibold p-4 rounded-xl shadow-md mt-4 transition duration-300">
-            Tìm Hiểu Thêm Về SFI CLUB & Kênh Cộng Đồng
-        </a>
-    </section>
+            <!-- Link 2: Tìm hiểu thêm (ví dụ: Group Telegram/Fanpage) -->
+            <a href="https://zalo.me/g/whsreu450" target="_blank"
+                class="block bg-slate-700 hover:bg-slate-600 text-white font-semibold p-4 rounded-xl shadow-md mt-4 transition duration-300">
+                Tìm Hiểu Thêm Về SFI CLUB & Kênh Cộng Đồng
+            </a>
+        </section>
 
-    <!-- Footer -->
-    <footer class="text-center pt-8 border-t border-slate-700">
-        <p class="text-sm text-gray-400">
-            Safe Financial Investment!. | © 2025 SFI Capital.
-        </p>
-        <p class="text-xs mt-1 text-primary">
-            🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
-            🚀💰.
-        </p>
-    </footer>
+        <!-- Footer -->
+        <footer class="text-center pt-8 border-t border-slate-700">
+            <p class="text-sm text-gray-400">
+                Safe Financial Investment!. | © 2025 SFI Capital.
+            </p>
+            <p class="text-xs mt-1 text-primary">
+                🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
+                🚀💰.
+            </p>
+        </footer>
 
     </div>
 
@@ -394,9 +391,10 @@
         function showTab(tabId) {
             showView('main'); // Đảm bảo chuyển về main view trước
 
-            // 1. Ẩn tất cả nội dung tab
+            // 1. Ẩn tất cả nội dung tab và xóa animation
             document.querySelectorAll('.tab-content').forEach(content => {
                 content.classList.add('hidden');
+                content.classList.remove('active-content');
             });
 
             // 2. Hủy trạng thái active của tất cả nút
@@ -408,6 +406,10 @@
             const activeContent = document.getElementById('tab-' + tabId);
             if (activeContent) {
                 activeContent.classList.remove('hidden');
+                // Dùng setTimeout ngắn để đảm bảo transition được kích hoạt sau khi class hidden bị loại bỏ
+                setTimeout(() => {
+                    activeContent.classList.add('active-content');
+                }, 10);
             }
 
             // 4. Kích hoạt nút tab được yêu cầu
@@ -421,13 +423,21 @@
         function showDetail(toolId) {
             showView('detail'); // Chuyển sang detail view
 
-            // Ẩn tất cả detail sections trước
+            // 1. Ẩn tất cả detail sections và xóa animation
             document.querySelectorAll('.detail-content').forEach(content => {
                 content.classList.add('hidden');
+                content.classList.remove('active-content');
             });
 
-            // Hiển thị specific detail section
-            document.getElementById(toolId + '-detail').classList.remove('hidden');
+            // 2. Hiển thị specific detail section
+            const activeDetail = document.getElementById(toolId + '-detail');
+            if (activeDetail) {
+                activeDetail.classList.remove('hidden');
+                // Dùng setTimeout ngắn để kích hoạt transition
+                setTimeout(() => {
+                    activeDetail.classList.add('active-content');
+                }, 10);
+            }
         }
 
         // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang
@@ -435,7 +445,7 @@
             showTab('gioi-thieu');
         };
 
-        // Cập nhật thông tin mặc định
+        // Cập nhật thông tin mặc định (Giữ nguyên các URL bạn đã cung cấp)
         document.getElementById('avatar').src = 'https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png';
         document.getElementById('tagline').textContent = 'Cộng đồng Traders & Đầu tư Tài chính bền vững';
 
@@ -443,4 +453,3 @@
 </body>
 
 </html>
-
