@@ -319,14 +319,37 @@
                 giới thiệu và hướng dẫn tham gia SFI Club.</p>
 
             <div class="space-y-4">
-                <!-- Nút Liên hệ Zalo -->
-                <a href="https://zalo.me/869912102" target="_blank"
-                    class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
-                    <span class="text-2xl mr-3">💬</span>
-                    Hỗ trợ Nhanh qua Zalo
-                    <span class="text-xs ml-2 opacity-75">(Ưu tiên)</span>
-                </a>
+                <!-- MODAL: CỬA SỔ POP-UP HỖ TRỢ ZALO -->
+                <div id="zalo-qr-modal"
+                    class="fixed inset-0 bg-black bg-opacity-75 backdrop-blur-sm z-[100] hidden items-center justify-center p-4 transition-opacity duration-300">
+                    <!-- Modal Content -->
+                    <div class="bg-slate-800 card p-6 rounded-2xl shadow-2xl max-w-sm w-full relative transform transition-all duration-300 scale-95 opacity-0"
+                        id="zalo-qr-modal-content">
+                        <!-- Nút Đóng -->
+                        <button onclick="closeModal('zalo-qr-modal')"
+                            class="absolute top-3 right-3 text-gray-400 hover:text-white transition duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
 
+                        <h3 class="text-2xl font-bold mb-4 text-primary text-center">Liên Hệ Hỗ Trợ Zalo</h3>
+                        <p class="text-gray-300 mb-6 text-center">Vui lòng quét mã QR Code để kết nối trực tiếp với Em Lợi SFI
+                            Club.</p>
+
+                    <!-- QR CODE ZALO -->
+                    <div class="flex justify-center">
+                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/3ad789b3ce1743491a06.jpg"
+                            onerror="this.onerror=null;this.src='https://placehold.co/250x250/34d399/0f172a?text=QR+Code+Error';"
+                            alt="QR Code Zalo Em Lợi SFI" class="w-60 h-60 rounded-lg border-4 border-primary shadow-lg">
+                    </div>
+
+                    <p class="text-sm text-gray-500 mt-4 text-center">Hoặc tìm kiếm Zalo theo SĐT: 0869912102</p>
+
+                </div>
+            </div>
+            <!-- KẾT THÚC MODAL -->
                 <!-- Nút Gọi điện thoại -->
                 <a href="tel:0869912102"
                     class="block w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
@@ -453,3 +476,4 @@
 </body>
 
 </html>
+
