@@ -8,7 +8,7 @@
     <!-- Tải Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Inter cho cảm giác hiện đại và dễ đọc -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Thư viện Lucide Icons (Sử dụng SVG icons hiện đại thay cho emoji) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -205,7 +205,8 @@
                         <div onclick="showDetail('bot')"
                             class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
                             <div class="flex items-center">
-                                <i data-lucide="robot" class="text-primary mr-4 w-8 h-8"></i>
+                                <!-- Đã sửa: dùng icon 'bot' thay cho 'robot' -->
+                                <i data-lucide="bot" class="text-primary mr-4 w-8 h-8"></i>
                                 <div>
                                     <p class="font-bold text-xl text-white">Bot Bán Tự Động: Quản trị Rủi ro Tự động</p>
                                     <p class="text-gray-400 text-sm">Nhấn để xem chi tiết về Hệ thống Quản lý Vốn 24/5.
@@ -253,7 +254,8 @@
                 <!-- KẾT THÚC KHU VỰC ẢNH -->
 
                 <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
-                    <i data-lucide="robot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
+                    <!-- Đã sửa: dùng icon 'bot' thay cho 'robot' -->
+                    <i data-lucide="bot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
                 </h2>
                 <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Hệ thống Quản trị Rủi ro Vốn Tự động
                     (Semi-Auto Bot)</p>
@@ -429,7 +431,7 @@
             modal.classList.add('open');
             content.classList.remove('entering');
             // Đảm bảo icon trong modal (ví dụ: nút đóng) được render
-            renderLucideIcons(); 
+            renderLucideIcons();
         }
 
         // Hàm xử lý đóng Modal (Pop-up)
@@ -481,7 +483,7 @@
                 setTimeout(() => {
                     activeContent.classList.add('active-content');
                     // GỌI HÀM RENDER ICON NGAY KHI NỘI DUNG TAB TRỞ NÊN HIỂN THỊ
-                    renderLucideIcons(); 
+                    renderLucideIcons();
                 }, 10);
             }
 
