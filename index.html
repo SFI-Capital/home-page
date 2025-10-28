@@ -415,12 +415,21 @@
     <!-- KẾT THÚC MODAL -->
 
     <script>
+        // Hàm này sẽ gọi Lucide để render tất cả các icon mới (hoặc các icon chưa được render)
+        function renderLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
         // Hàm xử lý mở Modal (Pop-up)
         function openModal(id) {
             const modal = document.getElementById(id);
             const content = modal.querySelector('.modal-content');
             modal.classList.add('open');
             content.classList.remove('entering');
+            // Đảm bảo icon trong modal (ví dụ: nút đóng) được render
+            renderLucideIcons(); 
         }
 
         // Hàm xử lý đóng Modal (Pop-up)
@@ -471,6 +480,8 @@
                 // Dùng setTimeout ngắn để đảm bảo transition được kích hoạt sau khi class hidden bị loại bỏ
                 setTimeout(() => {
                     activeContent.classList.add('active-content');
+                    // GỌI HÀM RENDER ICON NGAY KHI NỘI DUNG TAB TRỞ NÊN HIỂN THỊ
+                    renderLucideIcons(); 
                 }, 10);
             }
 
@@ -498,18 +509,15 @@
                 // Dùng setTimeout ngắn để kích hoạt transition
                 setTimeout(() => {
                     activeDetail.classList.add('active-content');
+                    // GỌI HÀM RENDER ICON NGAY KHI NỘI DUNG CHI TIẾT TRỞ NÊN HIỂN THỊ
+                    renderLucideIcons();
                 }, 10);
             }
         }
 
-        // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang và Lucide Icons được render
+        // Khởi tạo: Đảm bảo Tab Giới thiệu SFI luôn được chọn khi tải trang
         window.onload = function () {
-            // Render Lucide icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            }
-
-            // Hiển thị tab mặc định
+            // Hiển thị tab mặc định (hàm showTab sẽ tự động gọi renderLucideIcons)
             showTab('gioi-thieu');
         };
 
