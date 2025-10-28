@@ -35,31 +35,37 @@
             /* Bóng đổ sâu hơn */
         }
 
-        /* Màu chủ đạo (Accent Color) - Xanh ngọc bích chuyên nghiệp */
+        /* === ĐỊNH NGHĨA MÀU SẮC MỚI THEO YÊU CẦU === */
+        /* Primary Color: #0f7aef (Xanh Lam Sáng) - Dùng cho Text và Border chính */
         .text-primary,
         .border-primary {
-            color: #34d399;
-            /* Emerald 400 */
+            color: #0f7aef;
         }
 
-        .bg-primary {
-            background-color: #34d399;
+        /* Accent Color: #a51af4 (Tím Sáng) - Dùng cho Nền Nút, Tab Active, và các yếu tố nhấn mạnh */
+        .bg-accent {
+            background-color: #6ce3ff;
         }
 
-        .hover\:bg-primary-dark:hover {
-            background-color: #10b981;
-            /* Emerald 500 */
+        .hover\:bg-accent-dark:hover {
+            background-color: #6900bc;
+            /* Dark Purple - Tím đậm hơn cho hover */
         }
 
-        /* Hiệu ứng cho nút CTA lớn */
+        /* Lưu ý Color: #fcd878 (Vàng Nhạt) - Dùng cho các đoạn lưu ý nhỏ */
+        .text-note {
+            color: #fcd878;
+        }
+        
+        /* Hiệu ứng cho nút CTA lớn (Sử dụng Accent Color) */
         .cta-button {
             transition: all 0.3s ease;
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px -5px rgba(52, 211, 153, 0.5);
-            /* Tăng bóng đổ khi hover */
+            box-shadow: 0 8px 25px -5px rgba(165, 26, 244, 0.5); 
+            /* Tăng bóng đổ với màu Tím */
         }
 
         /* Style cho Tab Navigation */
@@ -76,12 +82,13 @@
             /* Slate 600 hover */
         }
 
+        /* Tab Active sử dụng Accent Color (#a51af4 - Tím Sáng) */
         .active-tab {
-            background-color: #34d399 !important;
-            /* Primary color */
+            background-color: #a51af4 !important;
+            /* Accent color */
             color: #0f172a !important;
             /* Dark text for contrast */
-            box-shadow: 0 4px 10px rgba(52, 211, 153, 0.4);
+            box-shadow: 0 4px 10px rgba(165, 26, 244, 0.4); 
         }
 
         /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (TRANSITION) === */
@@ -122,12 +129,13 @@
         <!-- Header và Tiêu đề - Hiện đại và Tối giản -->
         <header class="text-center mb-8 mt-8">
             <img id="avatar" src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png"
-                onerror="this.onerror=null;this.src='https://placehold.co/96x96/1e293b/34d399?text=SFI';"
+                onerror="this.onerror=null;this.src='https://placehold.co/96x96/1e293b/0f7aef?text=SFI';"
                 alt="Logo SFI Club" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary shadow-lg">
 
             <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
                 SFI CLUB - Safe Financial Investment
             </h1>
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
             <p class="text-xl font-medium text-primary" id="tagline">
                 Cộng đồng Traders & Đầu tư Tài chính bền vững
             </p>
@@ -152,7 +160,7 @@
                 <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                     <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
                     <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x200/34d399/0f172a?text=SFI+Club+Banner';"
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x200/0f7aef/0f172a?text=SFI+Club+Banner';"
                         alt="Banner SFI Club"
                         class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
                     <!-- KẾT THÚC KHU VỰC ẢNH -->
@@ -202,10 +210,10 @@
                     </h2>
                     <div class="space-y-6">
                         <!-- Clickable Card for Bot -->
+                        <!-- Icons dùng text-primary (#0f7aef) -->
                         <div onclick="showDetail('bot')"
                             class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
                             <div class="flex items-center">
-                                <!-- Đã sửa: dùng icon 'bot' thay cho 'robot' -->
                                 <i data-lucide="bot" class="text-primary mr-4 w-8 h-8"></i>
                                 <div>
                                     <p class="font-bold text-xl text-white">Bot Bán Tự Động: Quản trị Rủi ro Tự động</p>
@@ -248,19 +256,20 @@
 
                 <!-- KHU VỰC ẢNH BOT -->
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/bot_14.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/34d399?text=Bot+Giao+Dich+Tu+Dong';"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bot+Giao+Dich+Tu+Dong';"
                     alt="Hình ảnh Bot Bán Tự Động"
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
                 <!-- KẾT THÚC KHU VỰC ẢNH -->
 
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
                 <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
-                    <!-- Đã sửa: dùng icon 'bot' thay cho 'robot' -->
                     <i data-lucide="bot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
                 </h2>
                 <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Hệ thống Quản trị Rủi ro Vốn Tự động
                     (Semi-Auto Bot)</p>
 
                 <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
                     <p><strong class="text-primary font-semibold">Tự động hóa kỷ luật:</strong> Tận dụng công nghệ AI để
                         tự động hóa việc quản lý vốn và vị thế, loại bỏ yếu tố cảm xúc trong giao dịch.</p>
                     <p><strong class="text-primary font-semibold">Hoạt động liên tục:</strong> Bot hoạt động **24/5**
@@ -270,7 +279,8 @@
                         ngờ.</p>
                     <p><strong class="text-primary font-semibold">Lợi ích:</strong> Giúp trader mới dễ dàng làm quen và
                         trader cũ tối ưu hóa chiến lược mà không cần canh màn hình liên tục.</p>
-                    <p class="pt-2 text-sm italic text-gray-500">Lưu ý: Bot được chia sẻ miễn phí, bạn chỉ cần trả phí
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
+                    <p class="pt-2 text-sm italic text-note">Lưu ý: Bot được chia sẻ miễn phí, bạn chỉ cần trả phí
                         thuê VPS. Bot bán tự động sẽ được tinh chỉnh thông số để
                         tối ưu hóa quy trình quản lý theo mức vốn tài khoản của bạn.</p>
                 </div>
@@ -287,11 +297,12 @@
 
                 <!-- KHU VỰC ẢNH TÍN HIỆU -->
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/Image_Pro%20p7enxwp7enxwp7en.png"
-                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/34d399?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
                     alt="Hình ảnh Tín Hiệu Chuyên Gia"
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
                 <!-- KẾT THÚC KHU VỰC ẢNH -->
 
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
                 <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
                     <i data-lucide="target" class="h-10 w-10 mr-2"></i> Chuyên Gia Tín Hiệu SFI
                 </h2>
@@ -299,6 +310,7 @@
                     vào lệnh Tối ưu (Entry Zone)</p>
 
                 <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
                     <p><strong class="text-primary font-semibold">Độ chính xác cao:</strong> Tín hiệu được sàng lọc và
                         xác nhận bởi đội ngũ chuyên gia dày dạn kinh nghiệm trên thị trường Vàng và Forex.</p>
                     <p><strong class="text-primary font-semibold">Phân tích chuyên sâu:</strong> Không chỉ là điểm
@@ -310,7 +322,8 @@
                     <p><strong class="text-primary font-semibold">Cập nhật tức thời:</strong> Tín hiệu được gửi đến
                         thành viên ngay lập tức qua kênh riêng tư, đảm bảo kịp thời hành động theo diễn biến thị trường.
                     </p>
-                    <p class="pt-2 text-sm italic text-gray-500">Lưu ý: Tín hiệu giao dịch là hoàn toàn miễn phí, được
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
+                    <p class="pt-2 text-sm italic text-note">Lưu ý: Tín hiệu giao dịch là hoàn toàn miễn phí, được
                         chia sẻ trên kênh riêng trên Discord.</p>
                 </div>
             </section>
@@ -327,6 +340,7 @@
                 Quay lại Trang Chủ
             </button>
 
+            <!-- Tiêu đề dùng text-primary (#0f7aef) -->
             <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
                 <i data-lucide="phone-call" class="h-10 w-10 mr-2"></i> Kênh Liên Hệ Hỗ Trợ
             </h2>
@@ -334,9 +348,9 @@
                 giới thiệu và hướng dẫn tham gia SFI Club.</p>
 
             <div class="space-y-4">
-                <!-- Nút 1: Liên hệ qua Zalo (Mở Modal) -->
+                <!-- Nút 1: Liên hệ qua Zalo (Mở Modal) - Dùng bg-accent (#a51af4) -->
                 <button onclick="openModal('zalo-qr-modal')"
-                    class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
+                    class="block w-full bg-accent hover:bg-accent-dark text-gray-900 font-bold py-4 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center">
                     <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
                     Liên Hệ qua Zalo (Quét QR Code)
                 </button>
@@ -361,11 +375,12 @@
                 ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
             </p>
 
-            <!-- Button 1: Call to Action - Mở Trang Liên Hệ Chi Tiết (Đã thay đổi thành button) -->
+            <!-- Button 1: Call to Action - Mở Trang Liên Hệ Chi Tiết - Dùng bg-accent (#a51af4) -->
             <button onclick="showDetail('contact')"
-                class="cta-button w-full block bg-primary hover:bg-primary-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg">
+                class="cta-button w-full block bg-accent hover:bg-accent-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg">
                 <span class="text-gray-900">Liên Hệ Với Tôi Ngay!</span>
-                <p class="text-sm font-medium mt-1">Xem tất cả các kênh liên hệ để được hỗ trợ nhanh nhất.</p>
+                <p class="text-sm font-medium mt-1 text-gray-900">Xem tất cả các kênh liên hệ để được hỗ trợ nhanh nhất.
+                </p>
             </button>
 
             <!-- Link 2: Tìm hiểu thêm (ví dụ: Group Telegram/Fanpage) -->
@@ -380,6 +395,7 @@
             <p class="text-sm text-gray-400">
                 Safe Financial Investment!. | © 2025 SFI Capital.
             </p>
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
             <p class="text-xs mt-1 text-primary">
                 🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
                 🚀💰.
@@ -399,6 +415,7 @@
                 <i data-lucide="x" class="h-6 w-6"></i>
             </button>
 
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
             <h3 class="text-2xl font-bold mb-4 text-primary text-center">Liên Hệ Hỗ Trợ Zalo</h3>
             <p class="text-gray-300 mb-6 text-center">Vui lòng quét mã QR Code để kết nối trực tiếp với Em Lợi SFI
                 Club.</p>
@@ -406,7 +423,7 @@
             <!-- QR CODE ZALO -->
             <div class="flex justify-center">
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/3ad789b3ce1743491a06.jpg"
-                    onerror="this.onerror=null;this.src='https://placehold.co/250x250/34d399/0f172a?text=QR+Code+Error';"
+                    onerror="this.onerror=null;this.src='https://placehold.co/250x250/1e293b/0f7aef?text=QR+Code+Error';"
                     alt="QR Code Zalo Em Lợi SFI" class="w-60 h-60 rounded-lg border-4 border-primary shadow-lg">
             </div>
 
