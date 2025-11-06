@@ -67,18 +67,31 @@
             box-shadow: 0 8px 25px -5px rgba(108, 227, 255, 0.5);
         }
 
-        /* Hiệu ứng chuyển động nội dung chính/chi tiết */
+        /* KHẮC PHỤC LỖI: Sửa lại Content Transition */
+        /* Ban đầu ẩn và đẩy sang phải */
         .content-transition {
             opacity: 0;
             transform: translateX(20px);
             transition: opacity 0.4s ease, transform 0.4s ease;
+            position: absolute; /* Quan trọng: Đặt tuyệt đối trong main-container */
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
         }
 
+        /* Khi active: hiện và kéo về vị trí cũ */
         .active-content {
             opacity: 1;
             transform: translateX(0);
+            position: relative; /* Sau khi active, đặt lại vị trí tương đối */
         }
 
+        /* Đảm bảo container chính có chiều cao tối thiểu */
+        #main-container {
+            min-height: 500px; /* Giữ cho footer không bị nhảy lên */
+        }
+        
         #loading-message {
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -115,7 +128,7 @@
             <!-- MAIN VIEW: Danh sách Công cụ và Hoạt động -->
             <div id="app-container" class="content-transition active-content">
 
-                <!-- SECTION 1: Giới thiệu Chung (Nội dung tĩnh được phục hồi) -->
+                <!-- SECTION 1: Giới thiệu Chung (Nội dung tĩnh) -->
                 <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                     <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
                         onerror="this.onerror=null;this.src='https://placehold.co/800x200/0f7aef/0f172a?text=SFI+Club+Banner';"
@@ -172,7 +185,7 @@
                         <i data-lucide="calendar-check" class="h-6 w-6 mr-2"></i> Hoạt Động & Tin Tức
                     </h2>
                     <div id="activities-list" class="space-y-4">
-                        <!-- Dữ liệu Activities sẽ được chèn ở đây -->
+                        <!-- Dữ liệu Activities sẽ được chèn ở đây (Chờ tải từ API) -->
                         <p class="text-gray-400 text-center">Đang tải hoạt động...</p>
                     </div>
                 </section>
@@ -202,7 +215,7 @@
                             <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Số điện thoại (Zalo)</label>
                             <input type="tel" id="phone" name="phone" required
                                 class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
-                                placeholder="Ví dụ: 0869912102">
+                                placeholder="Ví dụ: 0987654321">
                         </div>
                         
                         <!-- Input Câu hỏi/Mong muốn (Tùy chọn) -->
@@ -241,63 +254,73 @@
                 </button>
 
                 <div id="detail-content-container" class="space-y-8">
-                    <!-- Chi tiết Công cụ 1 -->
-                    <div id="tool-1-detail" class="detail-content hidden">
+                    
+                    <!-- Chi tiết Công cụ 1 (Bot Bán Tự Động SFI) -->
+                    <section id="tool-1-detail" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
+                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/bot_14.png"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bot+Giao+Dich+Tu+Dong';"
+                            alt="Hình ảnh Bot Bán Tự Động"
+                            class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+
                         <h2 class="text-4xl font-extrabold text-white mb-4">Bot Bán Tự Động SFI</h2>
                         <p class="text-gray-400 mb-6">
-                            Hệ thống tự động hóa kỷ luật giao dịch, giúp Quản trị Rủi ro Vốn 24/5. Bot hoạt động trên nền
+                            Hệ thống tự động hóa kỷ luật giao dịch, giúp Quản trị Rủi ro Vốn **24/5**. Bot hoạt động trên nền
                             tảng MT5.
                         </p>
-                        <h3 class="text-2xl font-bold text-primary mb-3">Tính năng chính</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <h3 class="text-2xl font-bold text-primary mb-3 flex items-center">
+                            <i data-lucide="check-square" class="w-6 h-6 mr-2"></i> Tính năng chính
+                        </h3>
+                        <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
                             <li><strong class="text-white">Quản trị Rủi ro Tự động:</strong> Đặt Stop Loss và Take Profit
-                                chính xác theo tỷ lệ R:R cố định.</li>
+                                chính xác theo tỷ lệ R:R cố định, được thực thi tự động.</li>
                             <li><strong class="text-white">Kiểm soát Kỷ luật:</strong> Ngăn chặn giao dịch quá mức (Over
-                                Trading) theo ngày/tuần.</li>
-                            <li><strong class="text-white">Đa dạng Chiến lược:</strong> Có thể tùy chỉnh cho các chiến lược
-                                scalping, intraday hoặc swing.</li>
+                                Trading) theo ngày/tuần bằng các giới hạn được thiết lập sẵn.</li>
+                            <li><strong class="text-white">Tối ưu hóa MT5:</strong> Được thiết kế chuyên biệt cho nền tảng MT5, đảm bảo tốc độ và độ chính xác cao.</li>
+                            <li><strong class="text-white">Miễn phí sử dụng:</strong> Bot được cung cấp miễn phí cho thành viên SFI Club (Chỉ trả phí VPS).</li>
                         </ul>
-                    </div>
-                    <!-- Chi tiết Công cụ 2 -->
-                    <div id="tool-2-detail" class="detail-content hidden">
+                    </section>
+                    
+                    <!-- Chi tiết Công cụ 2 (Chuyên Gia Tín Hiệu SFI) -->
+                    <section id="tool-2-detail" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
+                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/Image_Pro%20p7enxwp7enxwp7en.png"
+                            onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
+                            alt="Hình ảnh Tín Hiệu Chuyên Gia"
+                            class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                        
                         <h2 class="text-4xl font-extrabold text-white mb-4">Chuyên Gia Tín Hiệu SFI</h2>
                         <p class="text-gray-400 mb-6">
                             Đội ngũ chuyên gia phân tích kỹ thuật và cơ bản, cung cấp tín hiệu giao dịch chất lượng cao
-                            dựa trên xác suất.
+                            dựa trên xác suất và phân tích đa chiều.
                         </p>
-                        <h3 class="text-2xl font-bold text-primary mb-3">Lợi ích</h3>
-                        <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4">
+                        <h3 class="text-2xl font-bold text-primary mb-3 flex items-center">
+                            <i data-lucide="zap" class="w-6 h-6 mr-2"></i> Lợi ích cốt lõi
+                        </h3>
+                        <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
                             <li><strong class="text-white">Xác định Entry Zone:</strong> Vùng vào lệnh tối ưu, giảm thiểu
-                                rủi ro.</li>
-                            <li><strong class="text-white">Phân tích Chuyên sâu:</strong> Cập nhật các yếu tố vĩ mô và vi
-                                mô ảnh hưởng đến thị trường.</li>
-                            <li><strong class="text-white">Hỗ trợ 1:1:</strong> Giải đáp thắc mắc và hỗ trợ chiến lược.
-                            </li>
+                                rủi ro trượt giá và tăng tỷ lệ thành công.</li>
+                            <li><strong class="text-white">Phân tích Chuyên sâu:</strong> Tín hiệu đi kèm với giải thích chi tiết về các yếu tố vĩ mô và vi mô.</li>
+                            <li><strong class="text-white">Cập nhật Tức thời:</strong> Tín hiệu được gửi đến thành viên qua kênh riêng tư (Discord/Telegram) ngay khi có cơ hội tốt nhất.</li>
+                            <li><strong class="text-white">Bảo hiểm Rủi ro:</strong> Chiến lược luôn bao gồm các điểm Stop Loss và Take Profit rõ ràng, giúp bảo vệ vốn.</li>
                         </ul>
-                    </div>
+                    </section>
 
-                    <!-- Chi tiết Hoạt động 1 (Mẫu) -->
-                    <div id="activity-1-detail" class="detail-content hidden">
-                        <h2 class="text-4xl font-extrabold text-white mb-4">Webinar: Quản Lý Vốn Trên Vàng</h2>
-                        <p class="text-gray-400 mb-6">
-                            Buổi chia sẻ chiến lược bảo toàn vốn trong thị trường Vàng nhiều biến động.
+                    <!-- Section chi tiết động cho Activities -->
+                    <section id="activity-detail-dynamic" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
+                        <h2 id="activity-detail-title" class="text-4xl font-extrabold text-white mb-4">Hoạt động: Đang tải...</h2>
+                        <div class="flex items-center text-gray-400 mb-6 border-b border-primary/20 pb-4">
+                            <i id="activity-detail-icon" data-lucide="calendar-check" class="w-5 h-5 mr-2 text-primary"></i>
+                            <span id="activity-detail-tag" class="text-xs font-medium py-0.5 px-1.5 rounded-full bg-slate-600 text-gray-300 mr-2">N/A</span>
+                            <span id="activity-detail-date" class="text-sm">Ngày: N/A</span>
+                        </div>
+                        
+                        <p id="activity-detail-full-description" class="text-gray-300 mb-6 leading-relaxed">
+                            Mô tả chi tiết hoạt động sẽ được tải tại đây.
                         </p>
-                        <p class="text-gray-300">
-                            Chi tiết về nội dung sẽ được cập nhật sớm nhất. Vui lòng liên hệ với chuyên viên hỗ trợ của
-                            SFI Club để đăng ký tham gia miễn phí!
-                        </p>
-                    </div>
 
-                    <!-- Chi tiết Liên hệ (Trang cũ) - Giữ lại phòng trường hợp cần thiết, nhưng không sử dụng. -->
-                    <div id="contact-detail" class="detail-content hidden card p-6">
-                        <h2 class="text-4xl font-extrabold text-white mb-4">Liên hệ & Hỗ trợ</h2>
-                        <p class="text-gray-400 mb-6">
-                            Bộ phận hỗ trợ sẽ liên hệ với bạn trong vòng 2 giờ làm việc sau khi bạn gửi Form thông tin.
-                        </p>
-                        <p class="text-gray-300">
-                            Để được hỗ trợ nhanh nhất, vui lòng liên hệ qua Zalo/Telegram.
-                        </p>
-                    </div>
+                        <p class="text-primary font-semibold">Vui lòng liên hệ với chuyên viên hỗ trợ của SFI Club để biết thêm chi tiết hoặc đăng ký tham gia!</p>
+                        <a href="tel:0869912102" class="text-note hover:text-white font-semibold mt-4 block">Gọi Ngay Hỗ Trợ: Em Lợi</a>
+                    </section>
+
                 </div>
 
             </div>
@@ -329,6 +352,9 @@
         const submitButton = document.getElementById('submit-button');
         const loadingMessage = document.getElementById('loading-message');
         const errorMessage = document.getElementById('error-message');
+        
+        // --- DATA STORE (Lưu trữ dữ liệu hoạt động tạm thời) ---
+        let loadedActivities = [];
 
         // --- Hàm Tiện ích ---
 
@@ -373,55 +399,103 @@
 
 
         // --- Logic Hiển thị ---
+        
+        // Cập nhật nội dung chi tiết cho hoạt động động
+        function updateActivityDetail(activity) {
+            const container = document.getElementById('activity-detail-dynamic');
+            
+            if (container) {
+                document.getElementById('activity-detail-title').textContent = activity.title;
+                document.getElementById('activity-detail-tag').textContent = activity.tag;
+                document.getElementById('activity-detail-date').textContent = `Ngày: ${activity.date}`;
+                document.getElementById('activity-detail-full-description').innerHTML = activity.description;
+                
+                // Cập nhật Icon Lucide cho Section Hoạt động
+                const iconElement = document.getElementById('activity-detail-icon');
+                if(iconElement && lucide.icons[activity.icon]) {
+                    // Đặt lại innerHTML của icon element để Lucide có thể render lại SVG
+                    iconElement.innerHTML = lucide.icons[activity.icon].contents;
+                    iconElement.setAttribute('data-lucide', activity.icon);
+                } else if (iconElement) {
+                    iconElement.setAttribute('data-lucide', 'calendar-check');
+                }
+            }
+        }
 
         // Hiển thị trang chủ (Danh sách)
         function showMainView() {
+            // 1. Kích hoạt transition ẩn cho Detail View
             detailView.classList.remove('active-content');
             detailView.classList.add('content-transition');
 
+            // 2. Sau khi transition hoàn tất (400ms), ẩn thật sự và hiển thị Main View
             setTimeout(() => {
                 detailView.classList.add('hidden');
+                detailView.style.position = 'absolute'; // Đặt lại vị trí tuyệt đối
+
                 appContainer.classList.remove('hidden');
+                appContainer.classList.remove('content-transition');
                 appContainer.classList.add('active-content');
-            }, 400); // Chờ transition của detailView kết thúc
+                appContainer.style.position = 'relative'; // Đặt lại vị trí tương đối
+            }, 400); 
         }
 
         // Hiển thị trang chi tiết
-        function showDetail(contentId) { // Đổi tên biến để tổng quát hóa (toolId -> contentId)
-            // 1. Ẩn Main View
+        function showDetail(contentId) { 
+            // 1. Kích hoạt transition ẩn cho Main View
             appContainer.classList.remove('active-content');
             appContainer.classList.add('content-transition');
 
-            setTimeout(() => {
-                appContainer.classList.add('hidden');
-                detailView.classList.remove('hidden');
+            const isActivity = contentId.startsWith('activity-');
+            const itemId = parseInt(contentId.split('-')[1]); 
 
-                // 2. Kích hoạt Detail View
-                detailView.classList.add('active-content');
-                detailView.classList.remove('content-transition');
+            // Xử lý nạp nội dung động nếu là Hoạt động
+            if (isActivity) {
+                const activity = loadedActivities.find(a => a.id === itemId);
+                if (activity) {
+                    updateActivityDetail(activity);
+                    // Đặt contentId là ID chung cho section dynamic
+                    contentId = 'activity-detail-dynamic'; 
+                } else {
+                    // Xử lý khi không tìm thấy hoạt động
+                    alert('Không tìm thấy chi tiết hoạt động này.');
+                    return; 
+                }
+            }
 
-                // 3. Ẩn tất cả detail sections
-                document.querySelectorAll('.detail-content').forEach(content => {
-                    content.classList.add('hidden');
-                    content.classList.remove('active-content');
-                });
 
-                // 4. Hiển thị specific detail section
-                const activeDetail = document.getElementById(contentId + '-detail');
-                if (activeDetail) {
-                    activeDetail.classList.remove('hidden');
-                    // Dùng setTimeout ngắn để kích hoạt transition
-                    setTimeout(() => {
-                        activeDetail.classList.add('active-content');
-                        renderLucideIcons();
-                    }, 10);
-                    // Scroll về đầu trang chi tiết
+            // 2. Thiết lập Detail View:
+            detailView.classList.remove('hidden');
+            detailView.style.position = 'absolute';
+
+            // 3. Ẩn tất cả detail sections
+            document.querySelectorAll('.detail-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active-content');
+            });
+
+            // 4. Hiển thị specific detail section
+            const activeDetail = document.getElementById(contentId);
+            if (activeDetail) {
+                activeDetail.classList.remove('hidden');
+                
+                // 5. Sau khi Main View ẩn (400ms), kích hoạt hiển thị Detail View
+                setTimeout(() => {
+                    appContainer.classList.add('hidden'); // Ẩn hẳn Main View
+
+                    detailView.classList.add('active-content');
+                    detailView.classList.remove('content-transition');
+                    detailView.style.position = 'relative'; // Quan trọng: Đặt lại tương đối để chiếm không gian
+                    
+                    activeDetail.classList.add('active-content'); // Kích hoạt transition cho nội dung
+                    
+                    renderLucideIcons();
                     window.scrollTo({
                         top: 0,
                         behavior: 'smooth'
                     });
-                }
-            }, 400); // Thời gian chờ transition của Main Content kết thúc
+                }, 400); 
+            }
         }
 
 
@@ -430,7 +504,7 @@
         // 1. Ghi nhận lượt xem Trang (PageView)
         async function trackPageView() {
             try {
-                // Sử dụng POST /api/stats/pageview (theo cấu hình stats.js đã fetch)
+                // Sử dụng GET /api/stats/pageview (theo cấu hình stats.js đã fetch)
                 await fetch(STATS_PAGEVIEW_ENDPOINT, { method: 'GET' }); 
             } catch (error) {
                 // console.error('Lỗi khi ghi nhận lượt xem:', error);
@@ -450,8 +524,19 @@
 
                 // Tải Activities
                 const activitiesResponse = await fetch(CONTENT_ACTIVITIES_ENDPOINT);
-                const activities = await activitiesResponse.json();
-                activitiesList.innerHTML = activities.map(createActivityCard).join('');
+                loadedActivities = await activitiesResponse.json(); // LƯU VÀO BIẾN TẠM THỜI
+                
+                if (loadedActivities.length > 0) {
+                    activitiesList.innerHTML = loadedActivities.map(createActivityCard).join('');
+                } else {
+                    activitiesList.innerHTML = `
+                        <div class="p-4 bg-slate-700 rounded-xl border border-slate-600 text-center">
+                            <i data-lucide="info" class="w-6 h-6 inline-block text-note mb-2"></i>
+                            <p class="text-gray-300 font-semibold">Hiện chưa có hoạt động nào mới. Vui lòng quay lại sau!</p>
+                        </div>
+                    `;
+                }
+
 
                 renderLucideIcons();
 
