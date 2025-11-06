@@ -32,9 +32,11 @@
             border-color: #334155;
             /* Slate 700 - Viền tinh tế */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            /* Bóng đổ sâu hơn */
         }
 
-        /* === ĐỊNH NGHĨA MÀU SẮC === */
+        /* === ĐỊNH NGHĨA MÀU SẮC THEO YÊU CẦU === */
+        /* Primary Color: #0f7aef (Xanh Lam Sáng) */
         .text-primary {
             color: #0f7aef;
         }
@@ -43,9 +45,9 @@
             border-color: #0f7aef;
         }
 
+        /* Accent Color: #6ce3ff (Xanh Ngọc) - Dùng cho Nền Nút CTA lớn */
         .bg-accent {
             background-color: #6ce3ff;
-            /* Xanh Ngọc */
         }
 
         .hover\:bg-accent-dark:hover {
@@ -53,11 +55,12 @@
             /* Xanh Ngọc đậm hơn cho hover */
         }
 
+        /* Lưu ý Color: #fcd878 (Vàng Nhạt) */
         .text-note {
             color: #fcd878;
         }
 
-        /* Hiệu ứng cho nút CTA lớn */
+        /* Hiệu ứng cho nút CTA lớn (Sử dụng Accent Color) */
         .cta-button {
             transition: all 0.3s ease;
         }
@@ -65,33 +68,27 @@
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px -5px rgba(108, 227, 255, 0.5);
+            /* Tăng bóng đổ với màu Xanh Ngọc */
         }
 
-        /* KHẮC PHỤC LỖI: Sửa lại Content Transition */
-        /* Ban đầu ẩn và đẩy sang phải */
+        /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (TRANSITION) === */
+        /* Content Transition cho Detail view */
         .content-transition {
             opacity: 0;
-            transform: translateX(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            position: absolute; /* Quan trọng: Đặt tuyệt đối trong main-container */
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
+            transform: translateY(15px) scale(0.98);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            /* Thời gian chuyển đổi 0.4s */
+            height: auto;
+            /* Đảm bảo chiều cao hợp lý */
+            position: relative;
         }
 
-        /* Khi active: hiện và kéo về vị trí cũ */
         .active-content {
             opacity: 1;
-            transform: translateX(0);
-            position: relative; /* Sau khi active, đặt lại vị trí tương đối */
+            transform: translateY(0) scale(1);
         }
 
-        /* Đảm bảo container chính có chiều cao tối thiểu */
-        #main-container {
-            min-height: 500px; /* Giữ cho footer không bị nhảy lên */
-        }
-        
+        /* FORM MESSAGES */
         #loading-message {
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -100,236 +97,279 @@
         #loading-message.active {
             opacity: 1;
         }
+
+        /* === CAROUSEL/SLIDER STYLES === */
+        /* Ẩn thanh cuộn cho WebKit browsers (Chrome, Safari) */
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Tùy chỉnh cho các trình duyệt khác */
+        .custom-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 
 <body class="dark-mode">
     <div class="max-w-3xl mx-auto p-4 sm:p-8 lg:p-10">
 
-        <!-- Header và Tiêu đề -->
+        <!-- Header và Tiêu đề - Hiện đại và Tối giản -->
         <header class="text-center mb-10 mt-8">
-            <img id="avatar"
-                src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png"
+            <img id="avatar" src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png"
                 onerror="this.onerror=null;this.src='https://placehold.co/96x96/1e293b/0f7aef?text=SFI';"
-                alt="Logo SFI Club"
-                class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary shadow-lg">
+                alt="Logo SFI Club" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-primary shadow-lg">
 
             <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
-                SFI CLUB - CỘNG ĐỒNG TÀI CHÍNH CHUYÊN NGHIỆP
+                SFI CLUB - Safe Financial Investment
             </h1>
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
             <p class="text-xl font-medium text-primary" id="tagline">
-                Nơi cung cấp Công cụ và Hệ thống giao dịch chất lượng cao.
+                Cộng đồng Traders & Đầu tư Tài chính bền vững
             </p>
         </header>
 
-        <!-- Container chứa Nội dung chính và Chi tiết (Sử dụng cho hiệu ứng chuyển trang) -->
-        <div id="main-container" class="relative overflow-hidden">
+        <!-- KHU VỰC NỘI DUNG CHÍNH (SINGLE SCROLL VIEW) -->
+        <div id="app-container" class="content-transition active-content">
 
-            <!-- MAIN VIEW: Danh sách Công cụ và Hoạt động -->
-            <div id="app-container" class="content-transition active-content">
-
-                <!-- SECTION 1: Giới thiệu Chung (Nội dung tĩnh) -->
-                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
-                    <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
-                        onerror="this.onerror=null;this.src='https://placehold.co/800x200/0f7aef/0f172a?text=SFI+Club+Banner';"
-                        alt="Banner SFI Club"
-                        class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
-
-                    <h2 class="text-3xl font-bold mb-4 border-b border-primary/20 pb-2 text-primary">
-                        Tối Ưu Lợi Nhuận, Quản Trị Rủi Ro Chuyên Nghiệp
-                    </h2>
-
-                    <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">1. Sứ Mệnh Cộng Đồng:</p>
-                    <p class="leading-relaxed text-base text-gray-300 mb-4">SFI CLUB (Safe Financial Investment) là nơi
-                        hội tụ các Nhà đầu tư, Traders, IB và MIB có chung mục tiêu phát triển bền vững trong lĩnh vực
-                        Tài chính CFDs, đặc biệt là Forex và Giao dịch Vàng. Chúng tôi xây dựng một môi trường nơi sự
-                        minh bạch và kỷ luật được đặt lên hàng đầu.</p>
-
-                    <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">2. Lợi Ích Vượt Trội:</p>
-                    <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4 mb-4">
-                        <li>
-                            <strong class="text-primary">Môi trường Học hỏi Chuyên sâu:</strong> Chia sẻ kinh nghiệm
-                            thực chiến và nâng cao kiến thức thông qua các chuyên gia hàng đầu.
-                        </li>
-                        <li>
-                            <strong class="text-primary">Sức mạnh Tập thể:</strong> Kết nối và đồng hành cùng một cộng
-                            đồng vững mạnh, nơi mọi thành viên là nguồn lực hỗ trợ lẫn nhau.
-                        </li>
-                        <li>
-                            <strong class="text-primary">Phát triển Bền vững:</strong> Tập trung vào các chiến lược đầu
-                            tư an toàn, có kỷ luật, hướng tới mục tiêu tăng trưởng vốn dài hạn.
-                        </li>
-                    </ul>
-
-                    <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">3. Tầm Nhìn SFI:</p>
-                    <p class="leading-relaxed text-base text-gray-300 mb-6">Chúng tôi cam kết cung cấp những công cụ cốt
-                        lõi (Bot & Tín hiệu) và kiến thức cần thiết để mỗi thành viên có thể tự tin làm chủ con đường
-                        Đầu tư Tài chính An toàn của mình.</p>
-                </section>
-                <!-- KẾT THÚC SECTION GIỚI THIỆU CHUNG -->
-
-                <!-- Danh sách Công cụ Cốt lõi (Tải từ API) -->
-                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
-                    <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary flex items-center">
-                        <i data-lucide="wrench" class="h-6 w-6 mr-2"></i> Công Cụ Cốt Lõi
-                    </h2>
-                    <div id="tools-list" class="space-y-4">
-                        <!-- Dữ liệu Tools sẽ được chèn ở đây -->
-                        <p class="text-gray-400 text-center">Đang tải công cụ...</p>
+            <!-- SECTION 1 (MỚI): Hoạt động và Tin tức Cộng đồng (CAROUSEL) -->
+            <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
+                    Hoạt động & Tin tức Cộng đồng
+                </h2>
+                <!-- Wrapper cho hiệu ứng lướt ngang -->
+                <div id="activities-carousel-wrapper" 
+                    class="custom-scrollbar overflow-x-scroll snap-x snap-mandatory pb-2 -mx-6 px-6">
+                    <div id="activities-list" class="flex space-x-4">
+                        <!-- Nội dung sẽ được tải từ API vào đây (loadActivities) -->
+                        <div class="snap-start w-72 flex-shrink-0 p-4 text-center text-gray-400">Đang tải Hoạt động...</div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <!-- Hoạt động và Tin tức Cộng đồng (Tải từ API) -->
-                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
-                    <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary flex items-center">
-                        <i data-lucide="calendar-check" class="h-6 w-6 mr-2"></i> Hoạt Động & Tin Tức
-                    </h2>
-                    <div id="activities-list" class="space-y-4">
-                        <!-- Dữ liệu Activities sẽ được chèn ở đây (Chờ tải từ API) -->
-                        <p class="text-gray-400 text-center">Đang tải hoạt động...</p>
-                    </div>
-                </section>
 
-                <!-- KHU VỰC FORM LEAD MỚI (Đặt ở dưới cùng) -->
-                <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
-                    <h2 class="text-3xl font-bold mb-6 border-b border-accent/20 pb-2 text-white text-center">
-                        <i data-lucide="hand-heart" class="w-7 h-7 inline-block mr-2 text-accent"></i>
-                        ĐĂNG KÝ HỖ TRỢ VÀ BOT MIỄN PHÍ
-                    </h2>
+            <!-- SECTION 2 (CŨ: Section 1): Giới thiệu Chung về SFI Club -->
+            <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
+                <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x200/0f7aef/0f172a?text=SFI+Club+Banner';"
+                    alt="Banner SFI Club"
+                    class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
 
-                    <p class="text-center text-gray-400 mb-6">
-                        Vui lòng điền thông tin để chúng tôi liên hệ hỗ trợ bạn **ngay lập tức** và hướng dẫn quy trình tham gia SFI Club.
-                    </p>
+                <h2 class="text-3xl font-bold mb-4 border-b border-primary/20 pb-2 text-primary">
+                    Tối Ưu Lợi Nhuận, Quản Trị Rủi Ro Chuyên Nghiệp
+                </h2>
 
-                    <form id="lead-form" class="space-y-4">
-                        <!-- Input Tên -->
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Họ và Tên</label>
-                            <input type="text" id="name" name="name" required
-                                class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
-                                placeholder="Ví dụ: Nguyễn Văn A">
-                        </div>
+                <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">1. Sứ Mệnh Cộng Đồng:</p>
+                <p class="leading-relaxed text-base text-gray-300 mb-4">SFI CLUB (Safe Financial Investment) là nơi
+                    hội tụ các Nhà đầu tư, Traders, IB và MIB có chung mục tiêu phát triển bền vững trong lĩnh vực
+                    Tài chính CFDs, đặc biệt là Forex và Giao dịch Vàng. Chúng tôi xây dựng một môi trường nơi sự
+                    minh bạch và kỷ luật được đặt lên hàng đầu.</p>
 
-                        <!-- Input Số điện thoại -->
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Số điện thoại (Zalo)</label>
-                            <input type="tel" id="phone" name="phone" required
-                                class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
-                                placeholder="Ví dụ: 0987654321">
-                        </div>
-                        
-                        <!-- Input Câu hỏi/Mong muốn (Tùy chọn) -->
-                        <div>
-                            <label for="question" class="block text-sm font-medium text-gray-400 mb-1">Câu hỏi/Yêu cầu hỗ trợ (Tùy chọn)</label>
-                            <textarea id="question" name="question" rows="2"
-                                class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
-                                placeholder="Tôi muốn hỏi về..."></textarea>
-                        </div>
+                <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">2. Lợi Ích Vượt Trội:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-300 ml-4 mb-4">
+                    <li>
+                        <strong class="text-primary">Môi trường Học hỏi Chuyên sâu:</strong> Chia sẻ kinh nghiệm
+                        thực chiến và nâng cao kiến thức thông qua các chuyên gia hàng đầu.
+                    </li>
+                    <li>
+                        <strong class="text-primary">Sức mạnh Tập thể:</strong> Kết nối và đồng hành cùng một cộng
+                        đồng vững mạnh, nơi mọi thành viên là nguồn lực hỗ trợ lẫn nhau.
+                    </li>
+                    <li>
+                        <strong class="text-primary">Phát triển Bền vững:</strong> Tập trung vào các chiến lược đầu
+                        tư an toàn, có kỷ luật, hướng tới mục tiêu tăng trưởng vốn dài hạn.
+                    </li>
+                </ul>
 
-                        <!-- Nút Đăng ký Lead - Dùng bg-accent -->
-                        <button type="submit" id="submit-button"
-                            class="cta-button w-full block bg-accent hover:bg-accent-dark text-gray-900 font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
-                            <i data-lucide="send" class="w-5 h-5 mr-3"></i>
-                            GỬI YÊU CẦU & BẮT ĐẦU QUY TRÌNH
-                        </button>
-                    </form>
+                <p class="leading-relaxed text-base font-bold text-white mb-3 mt-4">3. Tầm Nhìn SFI:</p>
+                <p class="leading-relaxed text-base text-gray-300 mb-6">Chúng tôi cam kết cung cấp những công cụ cốt
+                    lõi (Bot & Tín hiệu) và kiến thức cần thiết để mỗi thành viên có thể tự tin làm chủ con đường
+                    Đầu tư Tài chính An toàn của mình.</p>
+            </section>
 
-                    <!-- Message Loading/Error -->
-                    <div id="loading-message"
-                        class="mt-4 p-4 rounded-lg text-center text-lg font-semibold text-note hidden">
-                        <i data-lucide="loader-2" class="w-6 h-6 mr-2 inline-block animate-spin"></i>
-                        Đang xử lý đăng ký, vui lòng chờ...
+            <!-- SECTION 3 (CŨ: Section 2): Công cụ Cốt Lõi (Tải từ API) -->
+            <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
+                    Lựa chọn Công cụ Cốt Lõi
+                </h2>
+                <p class="text-gray-300 mb-6">SFI Club cung cấp Bot bán tự động và Tín hiệu giao dịch chuyên sâu.</p>
+
+                <div id="tools-list" class="space-y-6">
+                    <!-- Nội dung sẽ được tải từ API vào đây (loadTools) -->
+                    <div class="p-6 text-center text-gray-400">Đang tải Công cụ...</div>
+                </div>
+            </section>
+            
+            <!-- Welcome message (Giữ nguyên vị trí) -->
+            <p class="leading-relaxed text-xl font-extrabold text-note text-center mb-10">
+                Tới với SFi bạn sẽ được sở hữu cả 2 công cụ trên Miễn Phí! Hãy cùng SFI CLUB kiến tạo thành công bền vững. 🚀
+            </p>
+
+            <!-- KHU VỰC ĐĂNG KÝ LEAD (FORM) - Giữ nguyên vị trí cuối cùng -->
+            <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
+                    Đăng ký Nhận Hỗ trợ (Chỉ 30 Giây)
+                </h2>
+
+                <p class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500 text-center">
+                    ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
+                </p>
+
+                <form id="lead-form" class="space-y-6">
+                    <!-- Input Tên -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Họ và Tên</label>
+                        <input type="text" id="name" name="name" required
+                            class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
+                            placeholder="Ví dụ: Nguyễn Văn A">
                     </div>
 
-                    <p id="error-message" class="mt-4 text-center text-red-400 font-semibold hidden"></p>
-                </section>
-                <!-- KẾT THÚC KHU VỰC FORM LEAD MỚI -->
-            </div>
+                    <!-- Input Số điện thoại -->
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-400 mb-2">Số điện thoại (Zalo)</label>
+                        <input type="tel" id="phone" name="phone" required
+                            class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
+                            placeholder="Ví dụ: 0869912102">
+                    </div>
 
-            <!-- DETAIL VIEW: Trang chi tiết (Mặc định ẩn) -->
-            <div id="detail-view" class="content-transition absolute top-0 left-0 right-0 w-full hidden">
-                <button onclick="showMainView()"
-                    class="mb-6 inline-flex items-center text-primary hover:text-white transition duration-200 text-lg font-semibold">
-                    <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Quay lại Trang Chủ
-                </button>
+                    <!-- Nút Đăng ký Lead - Dùng bg-accent -->
+                    <button type="submit" id="submit-button"
+                        class="cta-button w-full block bg-accent hover:bg-accent-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
+                        <i data-lucide="send" class="w-6 h-6 mr-3"></i>
+                        NHẬN HỖ TRỢ VÀ HỆ THỐNG BOT NGAY!
+                    </button>
+                </form>
 
-                <div id="detail-content-container" class="space-y-8">
-                    
-                    <!-- Chi tiết Công cụ 1 (Bot Bán Tự Động SFI) -->
-                    <section id="tool-1-detail" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
-                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/bot_14.png"
-                            onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bot+Giao+Dich+Tu+Dong';"
-                            alt="Hình ảnh Bot Bán Tự Động"
-                            class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
-
-                        <h2 class="text-4xl font-extrabold text-white mb-4">Bot Bán Tự Động SFI</h2>
-                        <p class="text-gray-400 mb-6">
-                            Hệ thống tự động hóa kỷ luật giao dịch, giúp Quản trị Rủi ro Vốn **24/5**. Bot hoạt động trên nền
-                            tảng MT5.
-                        </p>
-                        <h3 class="text-2xl font-bold text-primary mb-3 flex items-center">
-                            <i data-lucide="check-square" class="w-6 h-6 mr-2"></i> Tính năng chính
-                        </h3>
-                        <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
-                            <li><strong class="text-white">Quản trị Rủi ro Tự động:</strong> Đặt Stop Loss và Take Profit
-                                chính xác theo tỷ lệ R:R cố định, được thực thi tự động.</li>
-                            <li><strong class="text-white">Kiểm soát Kỷ luật:</strong> Ngăn chặn giao dịch quá mức (Over
-                                Trading) theo ngày/tuần bằng các giới hạn được thiết lập sẵn.</li>
-                            <li><strong class="text-white">Tối ưu hóa MT5:</strong> Được thiết kế chuyên biệt cho nền tảng MT5, đảm bảo tốc độ và độ chính xác cao.</li>
-                            <li><strong class="text-white">Miễn phí sử dụng:</strong> Bot được cung cấp miễn phí cho thành viên SFI Club (Chỉ trả phí VPS).</li>
-                        </ul>
-                    </section>
-                    
-                    <!-- Chi tiết Công cụ 2 (Chuyên Gia Tín Hiệu SFI) -->
-                    <section id="tool-2-detail" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
-                        <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/Image_Pro%20p7enxwp7enxwp7en.png"
-                            onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
-                            alt="Hình ảnh Tín Hiệu Chuyên Gia"
-                            class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
-                        
-                        <h2 class="text-4xl font-extrabold text-white mb-4">Chuyên Gia Tín Hiệu SFI</h2>
-                        <p class="text-gray-400 mb-6">
-                            Đội ngũ chuyên gia phân tích kỹ thuật và cơ bản, cung cấp tín hiệu giao dịch chất lượng cao
-                            dựa trên xác suất và phân tích đa chiều.
-                        </p>
-                        <h3 class="text-2xl font-bold text-primary mb-3 flex items-center">
-                            <i data-lucide="zap" class="w-6 h-6 mr-2"></i> Lợi ích cốt lõi
-                        </h3>
-                        <ul class="list-disc list-inside space-y-3 text-gray-300 ml-4">
-                            <li><strong class="text-white">Xác định Entry Zone:</strong> Vùng vào lệnh tối ưu, giảm thiểu
-                                rủi ro trượt giá và tăng tỷ lệ thành công.</li>
-                            <li><strong class="text-white">Phân tích Chuyên sâu:</strong> Tín hiệu đi kèm với giải thích chi tiết về các yếu tố vĩ mô và vi mô.</li>
-                            <li><strong class="text-white">Cập nhật Tức thời:</strong> Tín hiệu được gửi đến thành viên qua kênh riêng tư (Discord/Telegram) ngay khi có cơ hội tốt nhất.</li>
-                            <li><strong class="text-white">Bảo hiểm Rủi ro:</strong> Chiến lược luôn bao gồm các điểm Stop Loss và Take Profit rõ ràng, giúp bảo vệ vốn.</li>
-                        </ul>
-                    </section>
-
-                    <!-- Section chi tiết động cho Activities -->
-                    <section id="activity-detail-dynamic" class="detail-content hidden card p-6 md:p-8 rounded-2xl border border-gray-700">
-                        <h2 id="activity-detail-title" class="text-4xl font-extrabold text-white mb-4">Hoạt động: Đang tải...</h2>
-                        <div class="flex items-center text-gray-400 mb-6 border-b border-primary/20 pb-4">
-                            <i id="activity-detail-icon" data-lucide="calendar-check" class="w-5 h-5 mr-2 text-primary"></i>
-                            <span id="activity-detail-tag" class="text-xs font-medium py-0.5 px-1.5 rounded-full bg-slate-600 text-gray-300 mr-2">N/A</span>
-                            <span id="activity-detail-date" class="text-sm">Ngày: N/A</span>
-                        </div>
-                        
-                        <p id="activity-detail-full-description" class="text-gray-300 mb-6 leading-relaxed">
-                            Mô tả chi tiết hoạt động sẽ được tải tại đây.
-                        </p>
-
-                        <p class="text-primary font-semibold">Vui lòng liên hệ với chuyên viên hỗ trợ của SFI Club để biết thêm chi tiết hoặc đăng ký tham gia!</p>
-                        <a href="tel:0869912102" class="text-note hover:text-white font-semibold mt-4 block">Gọi Ngay Hỗ Trợ: Em Lợi</a>
-                    </section>
-
+                <!-- Message Loading/Error -->
+                <div id="loading-message" class="mt-4 p-4 rounded-lg text-center text-lg font-semibold text-note hidden">
+                    <i data-lucide="loader-2" class="w-6 h-6 mr-2 inline-block animate-spin"></i>
+                    Đang xử lý đăng ký, vui lòng chờ...
                 </div>
 
-            </div>
+                <p id="error-message" class="mt-4 text-center text-red-400 font-semibold hidden"></p>
+            </section>
+
+
         </div>
+        <!-- KẾT THÚC KHU VỰC NỘI DUNG CHÍNH (SINGLE SCROLL VIEW) -->
+
+
+        <!-- KHU VỰC CHI TIẾT CÔNG CỤ (DETAIL VIEW) - Giữ nguyên -->
+        <div id="detail-view" class="hidden relative">
+            <!-- Chi tiết BOT (tool-1-detail) -->
+            <section id="tool-1-detail"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                <button onclick="showMain()"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
+                    Quay lại Trang Chủ
+                </button>
+
+                <!-- KHU VỰC ẢNH BOT -->
+                <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/bot_14.png"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bot+Giao+Dich+Tu+Dong';"
+                    alt="Hình ảnh Bot Bán Tự Động"
+                    class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
+                <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="bot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
+                </h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Hệ thống Quản trị Rủi ro Vốn Tự động
+                    (Semi-Auto Bot)</p>
+
+                <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
+                    <p><strong class="text-primary font-semibold">Tự động hóa kỷ luật:</strong> Tận dụng công nghệ AI để
+                        tự động hóa việc quản lý vốn và vị thế, loại bỏ yếu tố cảm xúc trong giao dịch.</p>
+                    <p><strong class="text-primary font-semibold">Hoạt động liên tục:</strong> Bot hoạt động **24/5**
+                        theo giờ thị trường Forex và Vàng, đảm bảo bạn không bỏ lỡ cơ hội nào ngay cả khi đang ngủ.</p>
+                    <p><strong class="text-primary font-semibold">Kiểm soát rủi ro:</strong> Thiết lập các giới hạn rủi
+                        ro chặt chẽ (Stop-loss, Take-profit) được thực thi tự động, bảo vệ tài khoản khỏi biến động bất
+                        ngờ.</p>
+                    <p><strong class="text-primary font-semibold">Lợi ích:</strong> Giúp trader mới dễ dàng làm quen và
+                        trader cũ tối ưu hóa chiến lược mà không cần canh màn hình liên tục.</p>
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
+                    <p class="pt-2 text-sm italic text-note">Lưu ý: Bot được chia sẻ miễn phí, bạn chỉ cần trả phí
+                        thuê VPS. Bot bán tự động sẽ được tinh chỉnh thông số để
+                        tối ưu hóa quy trình quản lý theo mức vốn tài khoản của bạn.</p>
+                </div>
+            </section>
+
+            <!-- Chi tiết SIGNALS (tool-2-detail) -->
+            <section id="tool-2-detail"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                <button onclick="showMain()"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
+                    Quay lại Trang Chủ
+                </button>
+
+                <!-- KHU VỰC ẢNH TÍN HIỆU -->
+                <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/Image_Pro%20p7enxwp7enxwp7en.png"
+                    onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
+                    alt="Hình ảnh Tín Hiệu Chuyên Gia"
+                    class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
+                <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="target" class="h-10 w-10 mr-2"></i> Chuyên Gia Tín Hiệu SFI
+                </h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">Phân tích đa chiều & Xác định Vùng
+                    vào lệnh Tối ưu (Entry Zone)</p>
+
+                <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
+                    <p><strong class="text-primary font-semibold">Độ chính xác cao:</strong> Tín hiệu được sàng lọc và
+                        xác nhận bởi đội ngũ chuyên gia dày dạn kinh nghiệm trên thị trường Vàng và Forex.</p>
+                    <p><strong class="text-primary font-semibold">Phân tích chuyên sâu:</strong> Không chỉ là điểm
+                        vào/ra, mỗi tín hiệu còn đi kèm với lý do phân tích (technical/fundamental) rõ ràng, giúp bạn
+                        học hỏi thêm.</p>
+                    <p><strong class="text-primary font-semibold">Tối ưu lợi nhuận:</strong> Tập trung vào việc xác định
+                        **vùng vào lệnh (Entry Zone)** lý tưởng, giảm thiểu rủi ro trượt giá và tối đa hóa tiềm năng lợi
+                        nhuận.</p>
+                    <p><strong class="text-primary font-semibold">Cập nhật tức thời:</strong> Tín hiệu được gửi đến
+                        thành viên ngay lập tức qua kênh riêng tư, đảm bảo kịp thời hành động theo diễn biến thị trường.
+                    </p>
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
+                    <p class="pt-2 text-sm italic text-note">Lưu ý: Tín hiệu giao dịch là hoàn toàn miễn phí, được
+                        chia sẻ trên kênh riêng trên Discord.</p>
+                </div>
+            </section>
+
+            <!-- Chi tiết HOẠT ĐỘNG (Dynamic) -->
+            <section id="activity-detail-dynamic"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                <button onclick="showMain()"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
+                    Quay lại Trang Chủ
+                </button>
+
+                <div id="dynamic-activity-content">
+                    <!-- Nội dung chi tiết của hoạt động được tải động sẽ nằm ở đây -->
+                    <h2 class="text-3xl font-extrabold mb-4 text-primary">Chi tiết Hoạt động</h2>
+                    <p class="text-white">Loading...</p>
+                </div>
+            </section>
+
+        </div>
+        <!-- KẾT THÚC KHU VỰC CHI TIẾT CÔNG CỤ -->
+
 
         <!-- Footer -->
-        <footer class="text-center pt-8 border-t border-slate-700 mt-10">
+        <footer class="text-center pt-8 border-t border-slate-700">
             <p class="text-sm text-gray-400">
                 Safe Financial Investment!. | © 2025 SFI Capital.
+            </p>
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
+            <p class="text-xs mt-1 text-primary">
+                🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
+                🚀💰.
             </p>
         </footer>
 
@@ -338,12 +378,12 @@
     <script>
         // --- Hằng số API ---
         const API_BASE_URL = 'https://sfi-automation-api.onrender.com';
-        const CONTENT_TOOLS_ENDPOINT = API_BASE_URL + '/api/content/tools';
-        const CONTENT_ACTIVITIES_ENDPOINT = API_BASE_URL + '/api/content/activities';
-        const STATS_PAGEVIEW_ENDPOINT = API_BASE_URL + '/api/stats/pageview';
-        const STATS_LEADS_ENDPOINT = API_BASE_URL + '/api/stats/leads';
+        const LEAD_ENDPOINT = API_BASE_URL + '/api/stats/leads';
+        const PAGEVIEW_ENDPOINT = API_BASE_URL + '/api/stats/pageview';
+        const TOOLS_ENDPOINT = API_BASE_URL + '/api/content/tools';
+        const ACTIVITIES_ENDPOINT = API_BASE_URL + '/api/content/activities';
 
-        // --- DOM Elements ---
+        // Lấy tham chiếu đến các container chính
         const appContainer = document.getElementById('app-container');
         const detailView = document.getElementById('detail-view');
         const toolsList = document.getElementById('tools-list');
@@ -352,202 +392,175 @@
         const submitButton = document.getElementById('submit-button');
         const loadingMessage = document.getElementById('loading-message');
         const errorMessage = document.getElementById('error-message');
-        
-        // --- DATA STORE (Lưu trữ dữ liệu hoạt động tạm thời) ---
-        let loadedActivities = [];
 
-        // --- Hàm Tiện ích ---
-
+        // Hàm Tiện ích: Rendering Icons
         function renderLucideIcons() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
         }
 
-        // Tạo thẻ HTML cho công cụ
-        function createToolCard(tool) {
-            // Dùng hàm showDetail để mở chi tiết công cụ theo ID
-            return `
-                <div class="card p-4 rounded-xl border border-gray-700 hover:border-primary transition duration-200 cursor-pointer"
-                    onclick="showDetail('tool-${tool.id}')">
-                    <div class="flex items-start">
-                        <i data-lucide="${tool.icon || 'star'}" class="w-7 h-7 mr-4 text-accent"></i>
-                        <div>
-                            <h3 class="text-xl font-bold text-white mb-1">${tool.name} <span class="text-sm font-medium ml-2 py-0.5 px-2 rounded-full bg-primary/20 text-primary">${tool.type}</span></h3>
-                            <p class="text-gray-400 text-base">${tool.description}</p>
+        // --- Hàm Tải Dữ liệu ---
+
+        // 1. Tải danh sách Công cụ (Tools)
+        async function loadTools() {
+            try {
+                const response = await fetch(TOOLS_ENDPOINT);
+                if (!response.ok) throw new Error('Failed to fetch tools');
+                const tools = await response.json();
+                
+                toolsList.innerHTML = tools.map(tool => `
+                    <div onclick="showDetail('tool-${tool.id}')"
+                        class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
+                        <div class="flex items-center">
+                            <i data-lucide="${tool.icon}" class="text-primary mr-4 w-8 h-8"></i>
+                            <div>
+                                <p class="font-bold text-xl text-white">${tool.name}</p>
+                                <p class="text-gray-400 text-sm">${tool.description}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `;
-        }
-
-        // Tạo thẻ HTML cho hoạt động
-        function createActivityCard(activity) {
-            // Dùng hàm showDetail để mở chi tiết hoạt động theo ID
-            return `
-                <div class="flex items-center space-x-4 p-3 border-b border-slate-700 last:border-b-0 cursor-pointer"
-                    onclick="showDetail('activity-${activity.id}')">
-                    <i data-lucide="${activity.icon || 'calendar'}" class="w-6 h-6 text-primary flex-shrink-0"></i>
-                    <div class="flex-grow">
-                        <p class="text-base font-semibold text-white">${activity.title} <span class="text-xs font-medium py-0.5 px-1.5 rounded-full bg-slate-600 text-gray-300 ml-2">${activity.tag}</span></p>
-                        <p class="text-sm text-gray-400">${activity.description.substring(0, 50)}...</p>
-                    </div>
-                    <p class="text-xs text-gray-500 flex-shrink-0">${activity.date}</p>
-                </div>
-            `;
-        }
-
-
-        // --- Logic Hiển thị ---
-        
-        // Cập nhật nội dung chi tiết cho hoạt động động
-        function updateActivityDetail(activity) {
-            const container = document.getElementById('activity-detail-dynamic');
-            
-            if (container) {
-                document.getElementById('activity-detail-title').textContent = activity.title;
-                document.getElementById('activity-detail-tag').textContent = activity.tag;
-                document.getElementById('activity-detail-date').textContent = `Ngày: ${activity.date}`;
-                document.getElementById('activity-detail-full-description').innerHTML = activity.description;
-                
-                // Cập nhật Icon Lucide cho Section Hoạt động
-                const iconElement = document.getElementById('activity-detail-icon');
-                if(iconElement && lucide.icons[activity.icon]) {
-                    // Đặt lại innerHTML của icon element để Lucide có thể render lại SVG
-                    iconElement.innerHTML = lucide.icons[activity.icon].contents;
-                    iconElement.setAttribute('data-lucide', activity.icon);
-                } else if (iconElement) {
-                    iconElement.setAttribute('data-lucide', 'calendar-check');
-                }
-            }
-        }
-
-        // Hiển thị trang chủ (Danh sách)
-        function showMainView() {
-            // 1. Kích hoạt transition ẩn cho Detail View
-            detailView.classList.remove('active-content');
-            detailView.classList.add('content-transition');
-
-            // 2. Sau khi transition hoàn tất (400ms), ẩn thật sự và hiển thị Main View
-            setTimeout(() => {
-                detailView.classList.add('hidden');
-                detailView.style.position = 'absolute'; // Đặt lại vị trí tuyệt đối
-
-                appContainer.classList.remove('hidden');
-                appContainer.classList.remove('content-transition');
-                appContainer.classList.add('active-content');
-                appContainer.style.position = 'relative'; // Đặt lại vị trí tương đối
-            }, 400); 
-        }
-
-        // Hiển thị trang chi tiết
-        function showDetail(contentId) { 
-            // 1. Kích hoạt transition ẩn cho Main View
-            appContainer.classList.remove('active-content');
-            appContainer.classList.add('content-transition');
-
-            const isActivity = contentId.startsWith('activity-');
-            const itemId = parseInt(contentId.split('-')[1]); 
-
-            // Xử lý nạp nội dung động nếu là Hoạt động
-            if (isActivity) {
-                const activity = loadedActivities.find(a => a.id === itemId);
-                if (activity) {
-                    updateActivityDetail(activity);
-                    // Đặt contentId là ID chung cho section dynamic
-                    contentId = 'activity-detail-dynamic'; 
-                } else {
-                    // Xử lý khi không tìm thấy hoạt động
-                    alert('Không tìm thấy chi tiết hoạt động này.');
-                    return; 
-                }
-            }
-
-
-            // 2. Thiết lập Detail View:
-            detailView.classList.remove('hidden');
-            detailView.style.position = 'absolute';
-
-            // 3. Ẩn tất cả detail sections
-            document.querySelectorAll('.detail-content').forEach(content => {
-                content.classList.add('hidden');
-                content.classList.remove('active-content');
-            });
-
-            // 4. Hiển thị specific detail section
-            const activeDetail = document.getElementById(contentId);
-            if (activeDetail) {
-                activeDetail.classList.remove('hidden');
-                
-                // 5. Sau khi Main View ẩn (400ms), kích hoạt hiển thị Detail View
-                setTimeout(() => {
-                    appContainer.classList.add('hidden'); // Ẩn hẳn Main View
-
-                    detailView.classList.add('active-content');
-                    detailView.classList.remove('content-transition');
-                    detailView.style.position = 'relative'; // Quan trọng: Đặt lại tương đối để chiếm không gian
-                    
-                    activeDetail.classList.add('active-content'); // Kích hoạt transition cho nội dung
-                    
-                    renderLucideIcons();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                }, 400); 
-            }
-        }
-
-
-        // --- Logic Kết nối API ---
-
-        // 1. Ghi nhận lượt xem Trang (PageView)
-        async function trackPageView() {
-            try {
-                // Sử dụng GET /api/stats/pageview (theo cấu hình stats.js đã fetch)
-                await fetch(STATS_PAGEVIEW_ENDPOINT, { method: 'GET' }); 
+                `).join('');
+                renderLucideIcons(); // Render icons sau khi chèn nội dung
             } catch (error) {
-                // console.error('Lỗi khi ghi nhận lượt xem:', error);
+                toolsList.innerHTML = `<p class="p-6 text-center text-red-400">Lỗi tải công cụ: ${error.message}</p>`;
             }
         }
 
-        // 2. Tải Dữ liệu Nội dung (Tools & Activities)
-        async function loadContent() {
-            toolsList.innerHTML = '<p class="text-gray-400 text-center">Đang tải công cụ...</p>';
-            activitiesList.innerHTML = '<p class="text-gray-400 text-center">Đang tải hoạt động...</p>';
-
+        // 2. Tải danh sách Hoạt động (Activities)
+        async function loadActivities() {
             try {
-                // Tải Tools
-                const toolsResponse = await fetch(CONTENT_TOOLS_ENDPOINT);
-                const tools = await toolsResponse.json();
-                toolsList.innerHTML = tools.map(createToolCard).join('');
+                const response = await fetch(ACTIVITIES_ENDPOINT);
+                if (!response.ok) throw new Error('Failed to fetch activities');
+                const activities = await response.json();
 
-                // Tải Activities
-                const activitiesResponse = await fetch(CONTENT_ACTIVITIES_ENDPOINT);
-                loadedActivities = await activitiesResponse.json(); // LƯU VÀO BIẾN TẠM THỜI
-                
-                if (loadedActivities.length > 0) {
-                    activitiesList.innerHTML = loadedActivities.map(createActivityCard).join('');
+                if (activities.length > 0) {
+                    activitiesList.innerHTML = activities.map(activity => `
+                        <div onclick="showActivityDetail(${activity.id}, '${activity.title}', '${activity.description.replace(/'/g, "\\'")}', '${activity.date}', '${activity.tag}')"
+                            class="snap-center w-80 flex-shrink-0 cursor-pointer card p-4 rounded-xl border border-gray-700 hover:bg-slate-700 transition duration-300">
+                            <div class="flex items-start mb-2">
+                                <i data-lucide="${activity.icon}" class="text-note mr-3 w-5 h-5 mt-1"></i>
+                                <div>
+                                    <p class="font-bold text-white">${activity.title}</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-2 line-clamp-2">${activity.description}</p>
+                            <span class="text-xs text-primary bg-primary/20 rounded-full px-3 py-1 whitespace-nowrap">${activity.tag} - ${activity.date}</span>
+                        </div>
+                    `).join('');
                 } else {
                     activitiesList.innerHTML = `
-                        <div class="p-4 bg-slate-700 rounded-xl border border-slate-600 text-center">
+                        <div class="snap-center w-80 flex-shrink-0 p-4 bg-slate-700 rounded-xl border border-slate-600 text-center">
                             <i data-lucide="info" class="w-6 h-6 inline-block text-note mb-2"></i>
                             <p class="text-gray-300 font-semibold">Hiện chưa có hoạt động nào mới. Vui lòng quay lại sau!</p>
                         </div>
                     `;
                 }
-
-
-                renderLucideIcons();
-
+                renderLucideIcons(); // Render icons sau khi chèn nội dung
             } catch (error) {
-                toolsList.innerHTML = '<p class="text-red-400 text-center">Lỗi tải dữ liệu Tools. Vui lòng kiểm tra API.</p>';
-                activitiesList.innerHTML = '<p class="text-red-400 text-center">Lỗi tải dữ liệu Activities. Vui lòng kiểm tra API.</p>';
-                // console.error('Lỗi khi tải nội dung:', error);
+                activitiesList.innerHTML = `<p class="p-6 text-center text-red-400">Lỗi tải hoạt động: ${error.message}</p>`;
             }
         }
 
-        // 3. Xử lý Đăng ký Lead (Form Submit)
+        // 3. Ghi nhận Lượt xem Trang (PageView)
+        async function trackPageView() {
+            try {
+                await fetch(PAGEVIEW_ENDPOINT, { method: 'GET' });
+            } catch (error) {
+                // console.error('Lỗi khi ghi nhận lượt xem:', error);
+            }
+        }
+
+
+        // --- Hàm Xử lý Tương tác GUI ---
+
+        // Hàm chuyển về Main View
+        function showMain() {
+            // 1. Ẩn tất cả detail sections và xóa animation
+            document.querySelectorAll('.detail-content').forEach(content => {
+                content.classList.remove('active-content');
+                // Dùng setTimeout để ẩn sau khi transition kết thúc
+                setTimeout(() => {
+                    content.classList.add('hidden');
+                }, 400); // 400ms là thời gian transition
+            });
+
+            // 2. Ẩn Detail View, Hiển thị Main Content
+            detailView.classList.remove('active-content');
+            appContainer.classList.remove('hidden');
+
+            // 3. Kích hoạt transition cho Main Content
+            setTimeout(() => {
+                detailView.classList.add('hidden');
+                appContainer.classList.add('active-content');
+            }, 10);
+
+            // Scroll về đầu trang chính
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+
+        // Hàm hiển thị trang chi tiết công cụ (Tool)
+        function showDetail(toolId) {
+            // 1. Ẩn Main Content và xóa animation
+            appContainer.classList.remove('active-content');
+            // Dùng setTimeout để ẩn sau khi transition kết thúc
+            setTimeout(() => {
+                appContainer.classList.add('hidden');
+
+                // 2. Hiển thị Detail View
+                detailView.classList.remove('hidden');
+
+                // 3. Ẩn tất cả detail sections
+                document.querySelectorAll('.detail-content').forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('active-content');
+                });
+
+                // 4. Hiển thị specific detail section
+                const activeDetail = document.getElementById(toolId + '-detail');
+                if (activeDetail) {
+                    activeDetail.classList.remove('hidden');
+                    // Dùng setTimeout ngắn để kích hoạt transition
+                    setTimeout(() => {
+                        activeDetail.classList.add('active-content');
+                        renderLucideIcons();
+                    }, 10);
+                    // Scroll về đầu trang chi tiết
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 400); // Thời gian chờ transition của Main Content kết thúc
+        }
+
+        // Hàm hiển thị trang chi tiết Hoạt động (Dynamic)
+        function showActivityDetail(id, title, description, date, tag) {
+            const dynamicContentContainer = document.getElementById('dynamic-activity-content');
+            
+            // Xây dựng nội dung động
+            dynamicContentContainer.innerHTML = `
+                <p class="text-sm font-medium text-gray-500 mb-2">${date} | <span class="text-primary">${tag}</span></p>
+                <h2 class="text-4xl font-extrabold mb-4 text-white">${title}</h2>
+                <p class="text-xl text-primary mb-6 border-b border-primary/20 pb-4">${description}</p>
+                <p class="text-gray-300">
+                    Cộng đồng SFI thường xuyên tổ chức các buổi chia sẻ và cập nhật nội dung. Vui lòng tham gia kênh Telegram/Zalo để nhận thông báo chi tiết cho hoạt động này.
+                </p>
+                
+                <a href="https://zalo.me/g/whsreu450" target="_blank"
+                    class="mt-8 cta-button w-full block bg-red-600 hover:bg-red-700 text-white font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
+                    <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
+                    ĐẾN KÊNH CỘNG ĐỒNG NGAY
+                </a>
+            `;
+            renderLucideIcons();
+            
+            // Hiển thị section chi tiết hoạt động động
+            showDetail('activity-detail-dynamic');
+        }
+
+
+        // --- Hàm Xử lý Form và API ---
+
+        // Hàm Xử lý Đăng ký Lead
         async function handleLeadSubmit(event) {
             event.preventDefault();
 
@@ -558,17 +571,15 @@
 
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
-            const question = document.getElementById('question').value;
 
             const payload = {
                 name: name,
                 phone: phone,
-                question: question || 'Không có câu hỏi cụ thể.',
-                source_page: 'LandingPage_index_html' 
+                source_page: 'RootLandingPage_SFI' // Tag Lead đến từ trang chủ
             };
 
             try {
-                const response = await fetch(STATS_LEADS_ENDPOINT, {
+                const response = await fetch(LEAD_ENDPOINT, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -579,33 +590,35 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Thành công: Chuyển hướng đến trang hướng dẫn
-                    const redirectUrl = data.redirect_url; 
+                    // Thành công: Chuyển hướng đến trang hướng dẫn (/guide/index.html)
+                    const redirectUrl = data.redirect_url;
                     
-                    // Lấy lead_id từ URL BE trả về (ví dụ: /2.html?lead_id=1)
-                    const urlParams = new URLSearchParams(redirectUrl.split('?')[1]);
-                    const leadId = urlParams.get('lead_id');
+                    // Lấy hostname hiện tại (ví dụ: https://sfi-capital.github.io)
+                    const baseUrl = window.location.origin;
 
-                    // Dùng tên file guide_process.html đã thống nhất
-                    const fullRedirectUrl = `guide_process.html?lead_id=${leadId}`; 
-                    
-                    loadingMessage.innerHTML = '<i data-lucide="check-circle" class="w-6 h-6 mr-2 inline-block text-note"></i> Đăng ký thành công! Đang chuyển hướng...';
-                    renderLucideIcons();
+                    // Tạo URL chuyển hướng tuyệt đối (https://sfi-capital.github.io/guide/index.html?lead_id=X)
+                    const fullRedirectUrl = `${baseUrl}${redirectUrl}`;
 
+                    // Hiển thị thông báo thành công và chuyển hướng
+                    loadingMessage.innerHTML = '<i data-lucide="check-circle" class="w-6 h-6 mr-2 inline-block"></i> Đăng ký thành công! Đang chuyển hướng...';
+
+                    // Chuyển hướng sau 1 giây
                     setTimeout(() => {
                         window.location.href = fullRedirectUrl;
-                    }, 1500); 
+                    }, 1000);
 
                 } else {
-                    errorMessage.textContent = data.message || 'Lỗi không xác định từ máy chủ. Vui lòng thử lại.';
+                    // Lỗi từ server
+                    errorMessage.textContent = data.message || 'Lỗi không xác định từ máy chủ.';
                     errorMessage.classList.remove('hidden');
                 }
             } catch (error) {
-                errorMessage.textContent = 'Lỗi kết nối mạng. Vui lòng kiểm tra API hoặc mạng của bạn.';
+                errorMessage.textContent = 'Lỗi kết nối mạng hoặc server chưa hoạt động.';
                 errorMessage.classList.remove('hidden');
                 // console.error('Fetch Error:', error);
             } finally {
-                if (!loadingMessage.innerHTML.includes('Đăng ký thành công')) {
+                // Chỉ reset trạng thái nút nếu không chuyển hướng thành công
+                if (!window.location.href.includes('guide/index.html')) {
                     submitButton.disabled = false;
                     loadingMessage.classList.add('hidden');
                     loadingMessage.classList.remove('active');
@@ -614,18 +627,20 @@
         }
 
 
-        // --- Khởi tạo ---
+        // --- Khởi tạo (Khi tải trang) ---
         window.onload = function () {
             // 1. Ghi nhận lượt xem trang
             trackPageView();
-            // 2. Tải nội dung Tools & Activities
-            loadContent();
+            // 2. Tải nội dung động
+            loadTools();
+            loadActivities();
             // 3. Lắng nghe sự kiện submit form
             form.addEventListener('submit', handleLeadSubmit);
-            // 4. Đảm bảo Main View luôn là mặc định khi tải trang và icons được render
+            // 4. Render icons
+            renderLucideIcons();
+            // 5. Setup View
             appContainer.classList.add('active-content');
             detailView.classList.add('hidden');
-            renderLucideIcons();
         };
 
     </script>
