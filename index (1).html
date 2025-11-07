@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quy trình Tham gia SFI Club - Đăng ký Sàn & Bot</title>
+    <!-- Tải Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter cho cảm giác hiện đại và dễ đọc -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Thư viện Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Thiết lập font Inter cho toàn bộ body và dark mode chuyên nghiệp */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            /* Slate 900 */
+            color: #e2e8f0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .card {
+            background-color: #1e293b;
+            /* Slate 800 */
+            border-color: #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === MÀU SẮC === */
+        .text-primary,
+        .border-primary {
+            color: #0f7aef;
+        }
+
+        .bg-accent {
+            background-color: #6ce3ff;
+        }
+
+        /* Xanh Ngọc */
+        .bg-primary {
+            background-color: #0f7aef;
+        }
+
+        .cta-bg {
+            background-color: #6ce3ff;
+        }
+
+        .cta-bg:hover {
+            background-color: #55c8e6;
+        }
+
+        .bg-landprime {
+            background-color: #fcd878;
+        }
+
+        .bg-landprime:hover {
+            background-color: #fce6a8;
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px -5px rgba(108, 227, 255, 0.5);
+        }
+
+        /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (GIỮ NGUYÊN) === */
+        .step-transition {
+            opacity: 0;
+            transform: translateY(15px) scale(0.98);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .step-transition.active-step {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <div class="max-w-xl mx-auto p-4 sm:p-8 lg:p-10">
+
+        <!-- Header và Tiêu đề -->
+        <header class="text-center mb-10 mt-4">
+            <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
+                CHÚC MỪNG BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG!
+            </h1>
+            <p class="text-xl font-medium text-primary">
+                Tiếp tục Quy trình Tham gia SFI Club
+            </p>
+
+            <!-- Hiển thị Lead ID -->
+            <div id="lead-id-display" class="mt-4 p-3 bg-slate-700 rounded-lg text-white font-bold hidden">
+                <i data-lucide="award" class="w-5 h-5 inline-block text-note mr-2"></i>
+                Mã Hỗ trợ Lead ID của bạn: <span id="lead-id-value" class="text-primary">Đang tải...</span>
+                <button onclick="copyLeadId()"
+                    class="ml-3 text-sm bg-primary/20 hover:bg-primary/50 text-primary py-1 px-2 rounded">
+                    Sao chép
+                </button>
+            </div>
+        </header>
+
+        <!-- Thanh tiến trình (Progress Bar) -->
+        <div class="mb-10 w-full card p-4 rounded-xl">
+            <h2 id="current-step-title" class="text-lg font-bold text-white mb-3 text-center">Bước 1: Đăng ký Land
+                Prime (Hoàn thành 50%)</h2>
+            <div class="flex justify-between items-center relative">
+                <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-700 mx-10 sm:mx-12">
+                    <div id="progress-line"
+                        class="absolute h-full bg-primary transition-all duration-500 ease-out w-[50%]"></div>
+                </div>
+
+                <div id="circle-1"
+                    class="z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 bg-primary text-gray-900 shadow-md">
+                    1</div>
+                <div id="circle-2"
+                    class="z-10 w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 bg-slate-700 text-gray-400 shadow-md">
+                    2</div>
+            </div>
+        </div>
+
+        <!-- KHU VỰC NỘI DUNG TỪNG BƯỚC -->
+        <div id="guide-container" class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+
+            <!-- STEP 1: Đăng ký Land Prime -->
+            <div id="step-1" class="guide-step-content step-transition active-step">
+                <h2 class="text-3xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="layers-3" class="h-8 w-8 mr-3"></i> Bước 1: Đăng ký Sàn Land Prime
+                </h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">
+                    Tốc độ khớp lệnh tuyệt đối, Đảm bảo giao dịch ổn định 24/5.
+                </p>
+
+                <p class="text-gray-300 mb-6">
+                    SFI Club khuyến nghị sử dụng Sàn **Land Prime** với Mã giới thiệu Land Prime là <strong
+                        class="text-primary">a49b0f59b0039f80</strong>.
+                </p>
+
+                <h3 class="text-2xl font-bold text-white pt-2 mb-4">Hướng dẫn chi tiết:</h3>
+                <ol class="list-decimal list-inside space-y-4 text-gray-300 ml-4">
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Truy cập Link:</strong> Nhấn vào nút bên dưới để bắt đầu đăng ký.
+                    </li>
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Điền Thông tin & Xác minh:</strong> Hoàn tất các trường thông tin và
+                        tiến hành Xác minh Tài khoản (KYC).
+                    </li>
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Mở Tài khoản MT5:</strong> Nền tảng: <strong
+                            class="text-primary">MT5</strong>. Loại Tài khoản: Chọn <strong
+                            class="text-primary">"Standard"</strong> hoặc <strong class="text-primary">"Cent"</strong>.
+                    </li>
+                </ol>
+
+                <!-- Link đăng ký Land Prime dùng bg-landprime (Vàng Nhạt) -->
+                <a href="https://www.landprime.pro/register/?code=a49b0f59b0039f80" target="_blank"
+                    class="block w-full text-center bg-landprime hover:bg-landprime text-gray-900 font-extrabold text-xl py-4 rounded-xl shadow-lg transition duration-300 flex items-center justify-center cta-button mt-8">
+                    <i data-lucide="external-link" class="w-6 h-6 mr-3"></i>
+                    ĐĂNG KÝ SÀN LAND PRIME NGAY
+                </a>
+
+                <!-- Nút chuyển sang bước 2 dùng cta-bg (Accent Color: #6ce3ff) -->
+                <button onclick="showStep(2)"
+                    class="mt-8 cta-button w-full block cta-bg hover:cta-bg text-gray-900 font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg">
+                    ĐÃ HOÀN TẤT BƯỚC 1 - CHUYỂN SANG ĐĂNG KÝ BOT
+                    <i data-lucide="arrow-right" class="w-5 h-5 ml-2 inline-block"></i>
+                </button>
+            </div>
+
+
+            <!-- STEP 2: Đăng ký Bot SFI -->
+            <div id="step-2" class="guide-step-content step-transition hidden">
+                <h2 class="text-3xl font-extrabold mb-4 text-primary flex items-center">
+                    <i data-lucide="settings-2" class="h-8 w-8 mr-3"></i> Bước 2: Đăng ký Hệ thống Bot SFI
+                </h2>
+                <p class="text-xl text-white mb-6 border-b border-primary/20 pb-4">
+                    Quản trị Rủi ro Vốn Tự động, Miễn phí Bot.
+                </p>
+
+                <h3 class="text-2xl font-bold text-white pt-2 mb-4">Các bước kích hoạt Bot:</h3>
+                <ul class="list-disc list-inside space-y-4 text-gray-300 ml-4">
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Đăng ký Tài khoản Bot:</strong> Truy cập link dưới đây để đăng ký Bot
+                        của SFI (chỉ trả phí VPS).
+                    </li>
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Liên hệ Kích hoạt:</strong> Sau khi đăng ký Bot, <strong
+                            class="text-primary">vui lòng liên hệ trực tiếp với Em Lợi</strong> để cung cấp thông tin tài
+                        khoản Sàn và Lead ID (<span id="lead-id-in-text" class="text-note">Đang tải...</span>).
+                    </li>
+                    <li class="p-3 card rounded-lg border-l-4 border-primary/50">
+                        <strong class="text-white">Hoàn tất Cài đặt VPS:</strong> SFI Club sẽ hỗ trợ bạn cài đặt VPS và
+                        tinh chỉnh Bot.
+                    </li>
+                </ul>
+
+                <!-- Link đăng ký Bot dùng cta-bg (Accent Color: #6ce3ff) -->
+                <a href="https://sficapital.vn/auto-trade?am_id=linguyn8293" target="_blank"
+                    class="block w-full text-center cta-bg hover:cta-bg text-gray-900 font-extrabold text-xl py-4 rounded-xl shadow-lg transition duration-300 flex items-center justify-center cta-button mt-8">
+                    <i data-lucide="cpu" class="w-6 h-6 mr-3"></i>
+                    ĐĂNG KÝ HỆ THỐNG BOT SFI NGAY
+                </a>
+
+                <!-- Liên hệ Hỗ trợ -->
+                <div class="mt-8 text-center border-t border-slate-700 pt-6">
+                    <p class="text-lg font-semibold text-white mb-4">Cần Hỗ trợ Gấp về Kích hoạt/Cài đặt?</p>
+                    <a href="tel:0869912102"
+                        class="block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition duration-300 flex items-center justify-center max-w-sm mx-auto">
+                        <i data-lucide="phone" class="w-5 h-5 mr-3"></i>
+                        Gọi Ngay Hỗ Trợ Kỹ Thuật: Em Lợi
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script>
+        // --- Hàm Tiện ích ---
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function copyLeadId() {
+            const leadId = document.getElementById('lead-id-value').textContent;
+            try {
+                // Sử dụng document.execCommand('copy') cho môi trường iFrame
+                const el = document.createElement('textarea');
+                el.value = leadId;
+                document.body.appendChild(el);
+                el.select();
+                document.execCommand('copy');
+                document.body.removeChild(el);
+                // Dùng custom alert thay vì window.alert()
+                alertMessage('Đã sao chép Lead ID: ' + leadId);
+            } catch (err) {
+                alertMessage('Không thể sao chép tự động. Vui lòng sao chép thủ công.');
+            }
+        }
+
+        // Custom alert (Thay thế cho window.alert)
+        function alertMessage(message) {
+            console.log(message); // Log ra console
+            const header = document.querySelector('header');
+            let alertBox = document.getElementById('custom-alert');
+
+            if (!alertBox) {
+                alertBox = document.createElement('div');
+                alertBox.id = 'custom-alert';
+                // Đặt vị trí cố định, màu sắc nổi bật
+                alertBox.className = 'fixed top-4 right-4 bg-primary text-gray-900 p-4 rounded-lg shadow-xl z-50 transition-transform duration-300 transform translate-x-full';
+                header.after(alertBox);
+            }
+
+            alertBox.textContent = message;
+            // Hiển thị alert
+            alertBox.style.transform = 'translateX(0)';
+
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                alertBox.style.transform = 'translateX(150%)';
+            }, 3000);
+        }
+
+        function renderLucideIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // --- Logic Chuyển bước và Cập nhật UI ---
+        function showStep(stepNumber) {
+            const stepId = 'step-' + stepNumber;
+            const stepTitle = document.getElementById('current-step-title');
+
+            const circle1 = document.getElementById('circle-1');
+            const circle2 = document.getElementById('circle-2');
+            const progressLine = document.getElementById('progress-line');
+
+            document.querySelectorAll('.guide-step-content').forEach(content => {
+                content.classList.remove('active-step');
+                content.classList.add('hidden');
+            });
+
+            const activeStep = document.getElementById(stepId);
+            if (activeStep) {
+                activeStep.classList.remove('hidden');
+
+                const activeColorClass = 'bg-primary';
+                const inactiveColorClass = 'bg-slate-700';
+
+                if (stepNumber === 1) {
+                    stepTitle.textContent = 'Bước 1: Đăng ký Land Prime (Hoàn thành 50%)';
+
+                    circle1.classList.add(activeColorClass, 'text-gray-900');
+                    circle1.classList.remove(inactiveColorClass, 'text-gray-400');
+                    circle2.classList.remove(activeColorClass, 'text-gray-900');
+                    circle2.classList.add(inactiveColorClass, 'text-gray-400');
+
+                    progressLine.style.width = '50%';
+                } else if (stepNumber === 2) {
+                    stepTitle.textContent = 'Bước 2: Đăng ký Bot SFI (Hoàn thành 100%)';
+
+                    circle1.classList.add(activeColorClass, 'text-gray-900');
+                    circle2.classList.add(activeColorClass, 'text-gray-900');
+                    circle2.classList.remove(inactiveColorClass, 'text-gray-400');
+
+                    progressLine.style.width = '100%';
+                }
+
+                setTimeout(() => {
+                    activeStep.classList.add('active-step');
+                    renderLucideIcons();
+                }, 10);
+            }
+        }
+
+        // --- Khởi tạo và Xử lý Lead ID ---
+        window.onload = function () {
+            const leadId = getQueryParam('lead_id');
+            const leadIdDisplay = document.getElementById('lead-id-display');
+            const leadIdValue = document.getElementById('lead-id-value');
+            const leadIdInText = document.getElementById('lead-id-in-text');
+
+            if (leadId) {
+                leadIdValue.textContent = leadId;
+                leadIdInText.textContent = leadId;
+                leadIdDisplay.classList.remove('hidden');
+            } else {
+                leadIdValue.textContent = 'KHÔNG CÓ ID';
+                leadIdInText.textContent = 'Vui lòng liên hệ hỗ trợ';
+            }
+
+            // Mặc định hiển thị Bước 1
+            showStep(1);
+            renderLucideIcons();
+        };
+
+    </script>
+</body>
+
+</html>
