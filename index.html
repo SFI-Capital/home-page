@@ -590,13 +590,14 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Thành công: Chuyển hướng đến trang hướng dẫn (/guide/index.html)
+                    // Thành công: Chuyển hướng đến trang hướng dẫn (guide.html)
                     const redirectUrl = data.redirect_url;
                     
                     // Lấy hostname hiện tại (ví dụ: https://sfi-capital.github.io)
                     const baseUrl = window.location.origin;
 
-                    // Tạo URL chuyển hướng tuyệt đối (https://sfi-capital.github.io/guide/index.html?lead_id=X)
+                    // TẠO URL CHUYỂN HƯỚNG TUYỆT ĐỐI VỚI BASE URL:
+                    // Ví dụ: https://sfi-capital.github.io/guide.html?lead_id=X
                     const fullRedirectUrl = `${baseUrl}${redirectUrl}`;
 
                     // Hiển thị thông báo thành công và chuyển hướng
@@ -618,7 +619,7 @@
                 // console.error('Fetch Error:', error);
             } finally {
                 // Chỉ reset trạng thái nút nếu không chuyển hướng thành công
-                if (!window.location.href.includes('guide/index.html')) {
+                if (!window.location.href.includes('guide.html')) {
                     submitButton.disabled = false;
                     loadingMessage.classList.add('hidden');
                     loadingMessage.classList.remove('active');
