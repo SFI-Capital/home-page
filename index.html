@@ -103,10 +103,13 @@
         .custom-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         /* Tùy chỉnh cho các trình duyệt khác */
         .custom-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
     </style>
 </head>
@@ -138,11 +141,12 @@
                     Hoạt động & Tin tức Cộng đồng
                 </h2>
                 <!-- Wrapper cho hiệu ứng lướt ngang -->
-                <div id="activities-carousel-wrapper" 
+                <div id="activities-carousel-wrapper"
                     class="custom-scrollbar overflow-x-scroll snap-x snap-mandatory pb-2 -mx-6 px-6">
                     <div id="activities-list" class="flex space-x-4">
                         <!-- Nội dung sẽ được tải từ API vào đây (loadActivities) -->
-                        <div class="snap-start w-72 flex-shrink-0 p-4 text-center text-gray-400">Đang tải Hoạt động...</div>
+                        <div class="snap-start w-72 flex-shrink-0 p-4 text-center text-gray-400">Đang tải Hoạt động...
+                        </div>
                     </div>
                 </div>
             </section>
@@ -201,10 +205,11 @@
                     <div class="p-6 text-center text-gray-400">Đang tải Công cụ...</div>
                 </div>
             </section>
-            
+
             <!-- Welcome message (Giữ nguyên vị trí) -->
             <p class="leading-relaxed text-xl font-extrabold text-note text-center mb-10">
-                Tới với SFi bạn sẽ được sở hữu cả 2 công cụ trên Miễn Phí! Hãy cùng SFI CLUB kiến tạo thành công bền vững. 🚀
+                Tới với SFi bạn sẽ được sở hữu cả 2 công cụ trên Miễn Phí! Hãy cùng SFI CLUB kiến tạo thành công bền
+                vững. 🚀
             </p>
 
             <!-- KHU VỰC ĐĂNG KÝ LEAD (FORM) - Giữ nguyên vị trí cuối cùng -->
@@ -213,7 +218,8 @@
                     Đăng ký Nhận Hỗ trợ (Chỉ 30 Giây)
                 </h2>
 
-                <p class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500 text-center">
+                <p
+                    class="text-white bg-red-700/80 p-5 rounded-2xl font-bold text-xl mb-6 shadow-xl border border-red-500 text-center">
                     ⚠️ Cần Người Giới Thiệu: Việc tham gia SFI CLUB bắt buộc phải thông qua Người Giới Thiệu.
                 </p>
 
@@ -228,7 +234,8 @@
 
                     <!-- Input Số điện thoại -->
                     <div>
-                        <label for="phone" class="block text-sm font-medium text-gray-400 mb-2">Số điện thoại (Zalo)</label>
+                        <label for="phone" class="block text-sm font-medium text-gray-400 mb-2">Số điện thoại
+                            (Zalo)</label>
                         <input type="tel" id="phone" name="phone" required
                             class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
                             placeholder="Ví dụ: 0869912102">
@@ -243,7 +250,8 @@
                 </form>
 
                 <!-- Message Loading/Error -->
-                <div id="loading-message" class="mt-4 p-4 rounded-lg text-center text-lg font-semibold text-note hidden">
+                <div id="loading-message"
+                    class="mt-4 p-4 rounded-lg text-center text-lg font-semibold text-note hidden">
                     <i data-lucide="loader-2" class="w-6 h-6 mr-2 inline-block animate-spin"></i>
                     Đang xử lý đăng ký, vui lòng chờ...
                 </div>
@@ -377,20 +385,7 @@
 
     <script>
         // --- Hằng số API ---
-        const ENCRYPTED_URL = 'aHR0cHM6Ly9zZmktYXV0b21hdGlvbi1hcGkub25yZW5kZXIuY29t'; 
-
-        function decodeBase64(str) {
-            return atob(str); 
-        }
-
-        const API_BASE_URL = decodeBase64(ENCRYPTED_URL); 
-
-        // Định nghĩa lại các Endpoint sử dụng API_BASE_URL đã giải mã
-        const LEAD_ENDPOINT = API_BASE_URL + '/api/stats/leads';
-        const PAGEVIEW_ENDPOINT = API_BASE_URL + '/api/stats/pageview';
-        const TOOLS_ENDPOINT = API_BASE_URL + '/api/content/tools';
-        const ACTIVITIES_ENDPOINT = API_BASE_URL + '/api/content/activities';
-
+        const API_BASE_URL = 'https://sfi-automation-api.onrender.com';
         // Lấy tham chiếu đến các container chính
         const appContainer = document.getElementById('app-container');
         const detailView = document.getElementById('detail-view');
@@ -413,10 +408,10 @@
         // 1. Tải danh sách Công cụ (Tools)
         async function loadTools() {
             try {
-                const response = await fetch(TOOLS_ENDPOINT);
+                const response = await fetch(`${API_BASE_URL}/api/content/tools`);
                 if (!response.ok) throw new Error('Failed to fetch tools');
                 const tools = await response.json();
-                
+
                 toolsList.innerHTML = tools.map(tool => `
                     <div onclick="showDetail('tool-${tool.id}')"
                         class="cursor-pointer card p-6 rounded-2xl border border-gray-700 hover:bg-slate-700 transition duration-300">
@@ -438,7 +433,7 @@
         // 2. Tải danh sách Hoạt động (Activities)
         async function loadActivities() {
             try {
-                const response = await fetch(ACTIVITIES_ENDPOINT);
+                const response = await fetch(`${API_BASE_URL}/api/content/activities`);
                 if (!response.ok) throw new Error('Failed to fetch activities');
                 const activities = await response.json();
 
@@ -473,7 +468,7 @@
         // 3. Ghi nhận Lượt xem Trang (PageView)
         async function trackPageView() {
             try {
-                await fetch(PAGEVIEW_ENDPOINT, { method: 'GET' });
+                await fetch(`${API_BASE_URL}/api/stats/pageview`, { method: 'GET' });
             } catch (error) {
                 // console.error('Lỗi khi ghi nhận lượt xem:', error);
             }
@@ -541,10 +536,11 @@
         }
 
         // Hàm hiển thị trang chi tiết Hoạt động (Dynamic)
+        // **ĐÃ SỬA: TẢI NỘI DUNG CONTENT_HTML ĐỘNG TỪ API**
         async function showActivityDetail(id) {
             const dynamicContentContainer = document.getElementById('dynamic-activity-content');
             dynamicContentContainer.innerHTML = '<h2 class="text-3xl font-extrabold mb-4 text-primary">Chi tiết Hoạt động</h2><p class="text-white"><i data-lucide="loader-2" class="w-5 h-5 inline-block animate-spin mr-2"></i> Đang tải nội dung chi tiết...</p>';
-    
+
             // Hiển thị khung chi tiết trước
             showDetail('activity-detail-dynamic');
 
@@ -559,11 +555,12 @@
                     <p class="text-sm font-medium text-gray-500 mb-2">${activity.date} | <span class="text-primary">${activity.tag}</span></p>
                     <h2 class="text-4xl font-extrabold mb-4 text-white">${activity.title}</h2>
                     <p class="text-xl text-primary mb-6 border-b border-primary/20 pb-4">${activity.description}</p>
-            
+                    
+                    <!-- CHÈN NỘI DUNG HTML CHI TIẾT ĐƯỢC TẢI TỪ BACK-END -->
                     <div class="space-y-4 text-gray-300">
                         ${activity.content_html}
                     </div>
-            
+                    
                     <a href="https://zalo.me/g/whsreu450" target="_blank"
                         class="mt-8 cta-button w-full block bg-red-600 hover:bg-red-700 text-white font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
                         <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
@@ -576,9 +573,10 @@
                     <p class="text-red-400">Không thể tải chi tiết hoạt động ID: ${id}. Vui lòng kiểm tra kết nối API.</p>
                 `;
             }
-    
+
             renderLucideIcons();
         }
+
 
         // --- Hàm Xử lý Form và API ---
 
@@ -601,7 +599,7 @@
             };
 
             try {
-                const response = await fetch(LEAD_ENDPOINT, {
+                const response = await fetch(`${API_BASE_URL}/api/stats/leads`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -614,7 +612,7 @@
                 if (response.ok) {
                     // Thành công: Chuyển hướng đến trang hướng dẫn (guide.html)
                     const redirectUrl = data.redirect_url;
-                    
+
                     // Lấy hostname hiện tại (ví dụ: https://sfi-capital.github.io)
                     const baseUrl = window.location.origin;
 
@@ -656,7 +654,7 @@
             trackPageView();
             // 2. Tải nội dung động
             loadTools();
-            loadActivities();
+            loadActivities(); // <-- Bây giờ hàm này sẽ gọi showActivityDetail(id) đã được sửa
             // 3. Lắng nghe sự kiện submit form
             form.addEventListener('submit', handleLeadSubmit);
             // 4. Render icons
