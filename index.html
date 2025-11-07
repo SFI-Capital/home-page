@@ -377,7 +377,15 @@
 
     <script>
         // --- Hằng số API ---
-        const API_BASE_URL = 'https://sfi-automation-api.onrender.com';
+        const ENCRYPTED_URL = 'aHR0cHM6Ly9zZmktYXV0b21hdGlvbi1hcGkub25yZW5kZXIuY29t'; 
+
+        function decodeBase64(str) {
+            return atob(str); 
+        }
+
+        const API_BASE_URL = decodeBase64(ENCRYPTED_URL); 
+
+        // Định nghĩa lại các Endpoint sử dụng API_BASE_URL đã giải mã
         const LEAD_ENDPOINT = API_BASE_URL + '/api/stats/leads';
         const PAGEVIEW_ENDPOINT = API_BASE_URL + '/api/stats/pageview';
         const TOOLS_ENDPOINT = API_BASE_URL + '/api/content/tools';
@@ -436,7 +444,7 @@
 
                 if (activities.length > 0) {
                     activitiesList.innerHTML = activities.map(activity => `
-                        <div onclick="showActivityDetail(${activity.id}, '${activity.title}', '${activity.description.replace(/'/g, "\\'")}', '${activity.date}', '${activity.tag}')"
+                        <div onclick="showActivityDetail(${activity.id})"
                             class="snap-center w-80 flex-shrink-0 cursor-pointer card p-4 rounded-xl border border-gray-700 hover:bg-slate-700 transition duration-300">
                             <div class="flex items-start mb-2">
                                 <i data-lucide="${activity.icon}" class="text-note mr-3 w-5 h-5 mt-1"></i>
@@ -533,30 +541,44 @@
         }
 
         // Hàm hiển thị trang chi tiết Hoạt động (Dynamic)
-        function showActivityDetail(id, title, description, date, tag) {
+        async function showActivityDetail(id) {
             const dynamicContentContainer = document.getElementById('dynamic-activity-content');
-            
-            // Xây dựng nội dung động
-            dynamicContentContainer.innerHTML = `
-                <p class="text-sm font-medium text-gray-500 mb-2">${date} | <span class="text-primary">${tag}</span></p>
-                <h2 class="text-4xl font-extrabold mb-4 text-white">${title}</h2>
-                <p class="text-xl text-primary mb-6 border-b border-primary/20 pb-4">${description}</p>
-                <p class="text-gray-300">
-                    Cộng đồng SFI thường xuyên tổ chức các buổi chia sẻ và cập nhật nội dung. Vui lòng tham gia kênh Telegram/Zalo để nhận thông báo chi tiết cho hoạt động này.
-                </p>
-                
-                <a href="https://zalo.me/g/whsreu450" target="_blank"
-                    class="mt-8 cta-button w-full block bg-red-600 hover:bg-red-700 text-white font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
-                    <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
-                    ĐẾN KÊNH CỘNG ĐỒNG NGAY
-                </a>
-            `;
-            renderLucideIcons();
-            
-            // Hiển thị section chi tiết hoạt động động
+            dynamicContentContainer.innerHTML = '<h2 class="text-3xl font-extrabold mb-4 text-primary">Chi tiết Hoạt động</h2><p class="text-white"><i data-lucide="loader-2" class="w-5 h-5 inline-block animate-spin mr-2"></i> Đang tải nội dung chi tiết...</p>';
+    
+            // Hiển thị khung chi tiết trước
             showDetail('activity-detail-dynamic');
-        }
 
+            try {
+                // 1. Gọi API để lấy nội dung chi tiết (bao gồm content_html)
+                const response = await fetch(`${API_BASE_URL}/api/content/activity/${id}`);
+                if (!response.ok) throw new Error('Failed to fetch activity detail.');
+                const activity = await response.json();
+
+                // 2. Xây dựng nội dung động
+                dynamicContentContainer.innerHTML = `
+                    <p class="text-sm font-medium text-gray-500 mb-2">${activity.date} | <span class="text-primary">${activity.tag}</span></p>
+                    <h2 class="text-4xl font-extrabold mb-4 text-white">${activity.title}</h2>
+                    <p class="text-xl text-primary mb-6 border-b border-primary/20 pb-4">${activity.description}</p>
+            
+                    <div class="space-y-4 text-gray-300">
+                        ${activity.content_html}
+                    </div>
+            
+                    <a href="https://zalo.me/g/whsreu450" target="_blank"
+                        class="mt-8 cta-button w-full block bg-red-600 hover:bg-red-700 text-white font-extrabold text-xl py-4 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
+                        <i data-lucide="message-circle" class="w-6 h-6 mr-3"></i>
+                        ĐẾN KÊNH CỘNG ĐỒNG NGAY
+                    </a>
+                `;
+            } catch (error) {
+                dynamicContentContainer.innerHTML = `
+                    <h2 class="text-3xl font-extrabold mb-4 text-red-400">Lỗi tải nội dung</h2>
+                    <p class="text-red-400">Không thể tải chi tiết hoạt động ID: ${id}. Vui lòng kiểm tra kết nối API.</p>
+                `;
+            }
+    
+            renderLucideIcons();
+        }
 
         // --- Hàm Xử lý Form và API ---
 
