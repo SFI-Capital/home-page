@@ -11,26 +11,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <!-- Khai báo Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2808485084838097"
-        crossorigin="anonymous"></script>
+     crossorigin="anonymous"></script>
     <!-- Thư viện Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
+        /* Thiết lập font Inter cho toàn bộ body */
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
 
+        /* Chế độ tối: Màu sắc chuyên nghiệp (Corporate Dark Theme) */
         .dark-mode {
             background-color: #0f172a;
+            /* Slate 900 - Nền sâu hơn */
             color: #e2e8f0;
+            /* Text sáng nhẹ */
         }
 
         .dark-mode .card {
             background-color: #1e293b;
+            /* Slate 800 - Nền card đậm */
             border-color: #334155;
+            /* Slate 700 - Viền tinh tế */
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            /* Bóng đổ sâu hơn */
         }
 
+        /* === ĐỊNH NGHĨA MÀU SẮC THEO YÊU CẦU === */
+        /* Primary Color: #0f7aef (Xanh Lam Sáng) */
         .text-primary {
             color: #0f7aef;
         }
@@ -39,18 +48,22 @@
             border-color: #0f7aef;
         }
 
+        /* Accent Color: #6ce3ff (Xanh Ngọc) - Dùng cho Nền Nút CTA lớn */
         .bg-accent {
             background-color: #6ce3ff;
         }
 
         .hover\:bg-accent-dark:hover {
             background-color: #00b0d8;
+            /* Xanh Ngọc đậm hơn cho hover */
         }
 
+        /* Lưu ý Color: #fcd878 (Vàng Nhạt) */
         .text-note {
             color: #fcd878;
         }
 
+        /* Hiệu ứng cho nút CTA lớn (Sử dụng Accent Color) */
         .cta-button {
             transition: all 0.3s ease;
         }
@@ -58,13 +71,18 @@
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px -5px rgba(108, 227, 255, 0.5);
+            /* Tăng bóng đổ với màu Xanh Ngọc */
         }
 
+        /* === CSS CHO HIỆU ỨNG CHUYỂN ĐỘNG (TRANSITION) === */
+        /* Content Transition cho Detail view */
         .content-transition {
             opacity: 0;
             transform: translateY(15px) scale(0.98);
             transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+            /* Thời gian chuyển đổi 0.4s */
             height: auto;
+            /* Đảm bảo chiều cao hợp lý */
             position: relative;
         }
 
@@ -101,6 +119,8 @@
 
 <body class="dark-mode">
     <div class="max-w-3xl mx-auto p-4 sm:p-8 lg:p-10">
+
+        <!-- Header và Tiêu đề - Hiện đại và Tối giản -->
         <header class="text-center mb-10 mt-8">
             <img id="avatar" src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/logo1.png"
                 onerror="this.onerror=null;this.src='https://placehold.co/96x96/1e293b/0f7aef?text=SFI';"
@@ -109,31 +129,40 @@
             <h1 class="text-4xl font-extrabold text-white mb-2 tracking-tight">
                 SFI CLUB - Safe Financial Investment
             </h1>
+            <!-- Text Primary là #0f7aef (Xanh Lam Sáng) -->
             <p class="text-xl font-medium text-primary" id="tagline">
                 Cộng đồng Traders & Đầu tư Tài chính bền vững
             </p>
         </header>
+
+        <!-- KHU VỰC NỘI DUNG CHÍNH (SINGLE SCROLL VIEW) -->
         <div id="app-container" class="content-transition active-content">
+
+            <!-- SECTION 1 (MỚI): Tin tức Vĩ mô & Thị trường (CAROUSEL) -->
             <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                 <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
                     Tin tức Vĩ mô & Thị trường
                 </h2>
+                <!-- Wrapper cho hiệu ứng lướt ngang -->
                 <div id="activities-carousel-wrapper"
                     class="custom-scrollbar overflow-x-scroll snap-x snap-mandatory pb-2 -mx-6 px-6">
                     <div id="activities-list" class="flex space-x-4">
-                        <div class="snap-start w-72 flex-shrink-0 p-4 text-center text-gray-400">
-                            <i data-lucide="loader-2" class="w-5 h-5 inline-block animate-spin mr-2"></i> Đang tải Tin
-                            tức...
+                        <!-- Nội dung sẽ được tải từ API vào đây (loadActivities) -->
+                        <div class="snap-start w-72 flex-shrink-0 p-4 text-center text-gray-400">Đang tải Tin tức...
                         </div>
                     </div>
                 </div>
             </section>
 
+
+            <!-- SECTION 2 (CŨ: Section 1): Giới thiệu Chung về SFI Club -->
             <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
+                <!-- KHU VỰC ẢNH BANNER SFI CLUB -->
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/club.jpg"
                     onerror="this.onerror=null;this.src='https://placehold.co/800x200/0f7aef/0f172a?text=SFI+Club+Banner';"
                     alt="Banner SFI Club"
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
 
                 <h2 class="text-3xl font-bold mb-4 border-b border-primary/20 pb-2 text-primary">
                     Tối Ưu Lợi Nhuận, Quản Trị Rủi Ro Chuyên Nghiệp
@@ -167,6 +196,7 @@
                     Đầu tư Tài chính An toàn của mình.</p>
             </section>
 
+            <!-- SECTION 3 (CŨ: Section 2): Công cụ Cốt Lõi (Tải từ API) -->
             <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                 <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
                     Lựa chọn Công cụ Cốt Lõi
@@ -174,14 +204,18 @@
                 <p class="text-gray-300 mb-6">SFI Club cung cấp Bot bán tự động và Tín hiệu giao dịch chuyên sâu.</p>
 
                 <div id="tools-list" class="space-y-6">
+                    <!-- Nội dung sẽ được tải từ API vào đây (loadTools) -->
                     <div class="p-6 text-center text-gray-400">Đang tải Công cụ...</div>
                 </div>
             </section>
+
+            <!-- Welcome message (Giữ nguyên vị trí) -->
             <p class="leading-relaxed text-xl font-extrabold text-note text-center mb-10">
                 Tới với SFi bạn sẽ được sở hữu cả 2 công cụ trên Miễn Phí! Hãy cùng SFI CLUB kiến tạo thành công bền
                 vững. 🚀
             </p>
 
+            <!-- KHU VỰC ĐĂNG KÝ LEAD (FORM) - Giữ nguyên vị trí cuối cùng -->
             <section class="card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10">
                 <h2 class="text-3xl font-bold mb-6 border-b border-primary/20 pb-2 text-primary">
                     Đăng ký Nhận Hỗ trợ (Chỉ 30 Giây)
@@ -209,12 +243,16 @@
                             class="w-full p-3 rounded-lg bg-slate-700 border border-slate-600 text-white placeholder-gray-500 focus:ring-primary focus:border-primary transition duration-200"
                             placeholder="Ví dụ: 0987654321">
                     </div>
+
+                    <!-- Nút Đăng ký Lead - Dùng bg-accent -->
                     <button type="submit" id="submit-button"
                         class="cta-button w-full block bg-accent hover:bg-accent-dark text-gray-900 font-extrabold text-2xl py-5 rounded-xl uppercase tracking-wider shadow-lg flex items-center justify-center">
                         <i data-lucide="send" class="w-6 h-6 mr-3"></i>
                         NHẬN HỖ TRỢ VÀ HỆ THỐNG BOT NGAY!
                     </button>
                 </form>
+
+                <!-- Message Loading/Error -->
                 <div id="loading-message"
                     class="mt-4 p-4 rounded-lg text-center text-lg font-semibold text-note hidden">
                     <i data-lucide="loader-2" class="w-6 h-6 mr-2 inline-block animate-spin"></i>
@@ -226,21 +264,22 @@
 
 
         </div>
+        <!-- KẾT THÚC KHU VỰC NỘI DUNG CHÍNH (SINGLE SCROLL VIEW) -->
 
+
+        <!-- KHU VỰC CHI TIẾT CÔNG CỤ (DETAIL VIEW) - Giữ nguyên -->
         <div id="detail-view" class="hidden relative">
+            <!-- Chi tiết BOT (tool-1-detail) -->
             <section id="tool-1-detail"
                 class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
-                <button onclick="showMain()"
-                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
-                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
-                    Quay lại Trang Chủ
-                </button>
-
+                                <!-- KHU VỰC ẢNH BOT -->
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/bot_14.png"
                     onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bot+Giao+Dich+Tu+Dong';"
                     alt="Hình ảnh Bot Bán Tự Động"
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
 
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
                 <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
                     <i data-lucide="bot" class="h-10 w-10 mr-2"></i> Bot Bán Tự Động SFI
                 </h2>
@@ -248,6 +287,7 @@
                     (Semi-Auto Bot)</p>
 
                 <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
                     <p><strong class="text-primary font-semibold">Tự động hóa kỷ luật:</strong> Tận dụng công nghệ AI để
                         tự động hóa việc quản lý vốn và vị thế, loại bỏ yếu tố cảm xúc trong giao dịch.</p>
                     <p><strong class="text-primary font-semibold">Hoạt động liên tục:</strong> Bot hoạt động **24/5**
@@ -257,24 +297,29 @@
                         ngờ.</p>
                     <p><strong class="text-primary font-semibold">Lợi ích:</strong> Giúp trader mới dễ dàng làm quen và
                         trader cũ tối ưu hóa chiến lược mà không cần canh màn hình liên tục.</p>
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
                     <p class="pt-2 text-sm italic text-note">Lưu ý: Bot được chia sẻ miễn phí, bạn chỉ cần trả phí
                         thuê VPS. Bot bán tự động sẽ được tinh chỉnh thông số để
                         tối ưu hóa quy trình quản lý theo mức vốn tài khoản của bạn.</p>
                 </div>
-            </section>
-
-            <section id="tool-2-detail"
-                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showMain()"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                     <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
                     Quay lại Trang Chủ
                 </button>
+            </section>
 
+            <!-- Chi tiết SIGNALS (tool-2-detail) -->
+            <section id="tool-2-detail"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                                <!-- KHU VỰC ẢNH TÍN HIỆU -->
                 <img src="https://raw.githubusercontent.com/SFI-Capital/home-page/refs/heads/main/Image_Pro%20p7enxwp7enxwp7en.png"
                     onerror="this.onerror=null;this.src='https://placehold.co/800x250/1e293b/0f7aef?text=Bieu+Do+Tin+Hieu+Chuyen+Sau';"
                     alt="Hình ảnh Tín Hiệu Chuyên Gia"
                     class="w-full rounded-xl mb-6 shadow-xl border-2 border-primary/50 object-cover h-auto">
+                <!-- KẾT THÚC KHU VỰC ẢNH -->
+
+                <!-- Tiêu đề dùng text-primary (#0f7aef) -->
                 <h2 class="text-4xl font-extrabold mb-4 text-primary flex items-center">
                     <i data-lucide="target" class="h-10 w-10 mr-2"></i> Chuyên Gia Tín Hiệu SFI
                 </h2>
@@ -282,6 +327,7 @@
                     vào lệnh Tối ưu (Entry Zone)</p>
 
                 <div class="space-y-4 text-gray-300">
+                    <!-- Text highlight dùng text-primary (#0f7aef) -->
                     <p><strong class="text-primary font-semibold">Độ chính xác cao:</strong> Tín hiệu được sàng lọc và
                         xác nhận bởi đội ngũ chuyên gia dày dạn kinh nghiệm trên thị trường Vàng và Forex.</p>
                     <p><strong class="text-primary font-semibold">Phân tích chuyên sâu:</strong> Không chỉ là điểm
@@ -293,32 +339,42 @@
                     <p><strong class="text-primary font-semibold">Cập nhật tức thời:</strong> Tín hiệu được gửi đến
                         thành viên ngay lập tức qua kênh riêng tư, đảm bảo kịp thời hành động theo diễn biến thị trường.
                     </p>
+                    <!-- Lưu ý dùng text-note (#fcd878) -->
                     <p class="pt-2 text-sm italic text-note">Lưu ý: Tín hiệu giao dịch là hoàn toàn miễn phí, được
                         chia sẻ trên kênh riêng trên Discord.</p>
                 </div>
-            </section>
-
-            <section id="activity-detail-dynamic"
-                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
                 <button onclick="showMain()"
                     class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
                     <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
                     Quay lại Trang Chủ
                 </button>
+            </section>
 
-                <div id="dynamic-activity-content">
+            <!-- Chi tiết HOẠT ĐỘNG (Dynamic) -->
+            <section id="activity-detail-dynamic"
+                class="detail-content content-transition card p-6 md:p-8 rounded-2xl border border-gray-700 mb-10 hidden">
+                                <div id="dynamic-activity-content">
+                    <!-- Nội dung chi tiết của hoạt động được tải động sẽ nằm ở đây -->
                     <h2 class="text-3xl font-extrabold mb-4 text-primary">Chi tiết Tin tức</h2>
                     <p class="text-white">Loading...</p>
                 </div>
+                <button onclick="showMain()"
+                    class="mb-6 text-primary hover:text-white transition duration-200 flex items-center font-semibold">
+                    <i data-lucide="chevron-left" class="h-5 w-5 mr-1"></i>
+                    Quay lại Trang Chủ
+                </button>
             </section>
 
         </div>
+        <!-- KẾT THÚC KHU VỰC CHI TIẾT CÔNG CỤ -->
+
+
         <!-- Footer -->
-        <p class="text-xs mt-1 text-primary">
-            🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
-            🚀💰.
-        </p>
         <footer class="text-center pt-8 border-t border-slate-700">
+            <p class="text-xs mt-1 text-primary">
+                🌟 Chúc bạn sẽ tìm thấy thật nhiều giá trị, cơ hội và thành công khi trở thành thành viên của cộng đồng!
+                🚀💰.
+            </p>
             <p class="text-sm text-gray-400">
                 Safe Financial Investment!. | © 2025 SFI Capital.
             </p>
@@ -327,7 +383,9 @@
     </div>
 
     <script>
+        // --- Hằng số API ---
         const API_BASE_URL = 'https://sfi-automation-api.onrender.com';
+        let lastScrollPosition = 0;
         const appContainer = document.getElementById('app-container');
         const detailView = document.getElementById('detail-view');
         const toolsList = document.getElementById('tools-list');
@@ -336,11 +394,13 @@
         const submitButton = document.getElementById('submit-button');
         const loadingMessage = document.getElementById('loading-message');
         const errorMessage = document.getElementById('error-message');
+
         function renderLucideIcons() {
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
         }
+
         async function loadTools() {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/content/tools`);
@@ -365,11 +425,10 @@
             }
         }
 
-        // 2. Tải danh sách Hoạt động (Activities) & Tin tức Vĩ mô
         async function loadActivities() {
             try {
                 const response = await fetch(`${API_BASE_URL}/api/content/activities`);
-                if (!response.ok) throw new Error('Failed to fetch activities and news');
+                if (!response.ok) throw new Error('Failed to fetch activities');
                 const activities = await response.json();
 
                 if (activities.length > 0) {
@@ -378,7 +437,7 @@
                         let iconClass = 'text-primary';
                         let icon = activity.icon || 'zap';
                         if (activity.tag === 'News' || activity.tag === 'EconomicEvent') {
-                            tagClass = 'bg-orange-100/20 text-orange-400 font-bold';
+                            tagClass = 'bg-orange-100/20 text-orange-400 font-bold'; 
                             iconClass = 'text-orange-400';
                             icon = activity.icon || 'newspaper';
                         } else if (activity.tag === 'NonFarm') {
@@ -386,7 +445,7 @@
                             iconClass = 'text-yellow-400';
                             icon = activity.icon || 'zap';
                         }
-
+                        
                         return `
                             <div onclick="showActivityDetail(${activity.id})"
                                 class="snap-center w-80 flex-shrink-0 cursor-pointer card p-4 rounded-xl border border-gray-700 hover:bg-slate-700 transition duration-300">
@@ -415,7 +474,6 @@
             }
         }
 
-        // 3. Ghi nhận Lượt xem Trang (PageView)
         async function trackPageView() {
             try {
                 await fetch(`${API_BASE_URL}/api/stats/pageview`, { method: 'GET' });
@@ -424,15 +482,17 @@
             }
         }
 
-        // Hàm chuyển về Main View
+
+        // --- Hàm Xử lý Tương tác GUI (ĐÃ SỬA CUỘN TRANG) ---
+
+        // Hàm chuyển về Main View (KHÔI PHỤC VỊ TRÍ CUỘN)
         function showMain() {
             // 1. Ẩn tất cả detail sections và xóa animation
             document.querySelectorAll('.detail-content').forEach(content => {
                 content.classList.remove('active-content');
-                // Dùng setTimeout để ẩn sau khi transition kết thúc
                 setTimeout(() => {
                     content.classList.add('hidden');
-                }, 400); // 400ms là thời gian transition
+                }, 400); 
             });
 
             // 2. Ẩn Detail View, Hiển thị Main Content
@@ -445,16 +505,18 @@
                 appContainer.classList.add('active-content');
             }, 10);
 
-            // Scroll về đầu trang chính
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // 4. KHÔI PHỤC VỊ TRÍ CUỘN CŨ
+            window.scrollTo({ top: lastScrollPosition, behavior: 'smooth' });
         }
 
 
-        // Hàm hiển thị trang chi tiết công cụ (Tool)
+        // Hàm hiển thị trang chi tiết công cụ (Tool) (GHI LẠI VỊ TRÍ CUỘN)
         function showDetail(toolId) {
+            // GHI LẠI VỊ TRÍ CUỘN HIỆN TẠI
+            lastScrollPosition = window.scrollY; // GHI VỊ TRÍ CUỘN
+            
             // 1. Ẩn Main Content và xóa animation
             appContainer.classList.remove('active-content');
-            // Dùng setTimeout để ẩn sau khi transition kết thúc
             setTimeout(() => {
                 appContainer.classList.add('hidden');
 
@@ -471,18 +533,16 @@
                 const activeDetail = document.getElementById(toolId + '-detail');
                 if (activeDetail) {
                     activeDetail.classList.remove('hidden');
-                    // Dùng setTimeout ngắn để kích hoạt transition
                     setTimeout(() => {
                         activeDetail.classList.add('active-content');
                         renderLucideIcons();
                     }, 10);
-                    // Scroll về đầu trang chi tiết
+                    // Cuộn về đầu trang chi tiết
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
-            }, 400); // Thời gian chờ transition của Main Content kết thúc
+            }, 400); 
         }
 
-        // Hàm hiển thị trang chi tiết Hoạt động (Dynamic)
         async function showActivityDetail(id) {
             const dynamicContentContainer = document.getElementById('dynamic-activity-content');
             dynamicContentContainer.innerHTML = '<h2 class="text-3xl font-extrabold mb-4 text-primary">Chi tiết Tin tức</h2><p class="text-white"><i data-lucide="loader-2" class="w-5 h-5 inline-block animate-spin mr-2"></i> Đang tải nội dung chi tiết...</p>';
@@ -499,7 +559,7 @@
                 // 2. Xây dựng nội dung động
                 let icon = activity.icon || 'zap';
                 let iconClass = 'text-primary';
-                if (activity.tag === 'News' || activity.tag === 'EconomicEvent') {
+                 if (activity.tag === 'News' || activity.tag === 'EconomicEvent') {
                     iconClass = 'text-orange-400';
                     icon = activity.icon || 'newspaper';
                 } else if (activity.tag === 'NonFarm') {
@@ -515,6 +575,7 @@
                     </h2>
                     <p class="text-xl text-primary mb-6 border-b border-primary/20 pb-4">${activity.description}</p>
                     
+                    <!-- CHÈN NỘI DUNG HTML CHI TIẾT ĐƯỢC TẢI TỪ BACK-END -->
                     <div class="space-y-4 text-gray-300">
                         ${activity.content_html}
                     </div>
@@ -536,9 +597,8 @@
         }
 
 
-        // --- Hàm Xử lý Form và API (Giữ nguyên) ---
+        // --- Hàm Xử lý Form và API (Không thay đổi) ---
 
-        // Hàm Xử lý Đăng ký Lead
         async function handleLeadSubmit(event) {
             event.preventDefault();
 
@@ -553,7 +613,7 @@
             const payload = {
                 name: name,
                 phone: phone,
-                source_page: 'RootLandingPage_SFI' // Tag Lead đến từ trang chủ
+                source_page: 'RootLandingPage_SFI'
             };
 
             try {
@@ -568,34 +628,24 @@
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Thành công: Chuyển hướng đến trang hướng dẫn
                     const redirectUrl = data.redirect_url;
-
-                    // Lấy hostname hiện tại
                     const baseUrl = window.location.origin;
-
-                    // TẠO URL CHUYỂN HƯỚNG TUYỆT ĐỐI VỚI BASE URL:
                     const fullRedirectUrl = `${baseUrl}${redirectUrl}`;
 
-                    // Hiển thị thông báo thành công và chuyển hướng
                     loadingMessage.innerHTML = '<i data-lucide="check-circle" class="w-6 h-6 mr-2 inline-block"></i> Đăng ký thành công! Đang chuyển hướng...';
 
-                    // Chuyển hướng sau 1 giây
                     setTimeout(() => {
                         window.location.href = fullRedirectUrl;
                     }, 1000);
 
                 } else {
-                    // Lỗi từ server
                     errorMessage.textContent = data.message || 'Lỗi không xác định từ máy chủ.';
                     errorMessage.classList.remove('hidden');
                 }
             } catch (error) {
                 errorMessage.textContent = 'Lỗi kết nối mạng hoặc server chưa hoạt động.';
                 errorMessage.classList.remove('hidden');
-                // console.error('Fetch Error:', error);
             } finally {
-                // Chỉ reset trạng thái nút nếu không chuyển hướng thành công
                 if (!window.location.href.includes('guide.html')) {
                     submitButton.disabled = false;
                     loadingMessage.classList.add('hidden');
@@ -625,4 +675,3 @@
 </body>
 
 </html>
-
